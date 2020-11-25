@@ -3,4 +3,5 @@ include 'hystrix-server'
 include 'gateway-server'
 include 'auth-api'
 include 'core'
+include 'community-api'
 
