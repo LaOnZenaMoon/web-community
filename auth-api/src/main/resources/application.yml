@@ -1,0 +1,39 @@
+server:
+  port: 8884
+
+spring:
+  application:
+    name: auth-api
+
+  profiles:
+    active: local
+
+logging:
+  level:
+    root: info
+    lozm: debug
+    org.springframework.web.filter.CommonsRequestLoggingFilter: debug
+
+jwt:
+  secret: hashing-jwt-token-secret-key-test
+  expiration-time: 1800
+  token-prefix: Bearer
+  header-string: Authorization
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 120000
+
+ribbon:
+  MaxAutoRetries: 2
+  MaxAutoRetriesNextServer: 3
+  OkToRetryOnAllOperations: true
+  ReadTimeout: 5000
+  ConnectTimeout: 1000
+  MaxTotalConnections: 300
+  MaxConnectionsPerHost: 100
+  retryableStatusCodes: 500
