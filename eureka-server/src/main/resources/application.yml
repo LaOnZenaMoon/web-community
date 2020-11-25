@@ -1,0 +1,21 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+
+  profiles:
+    active: local
+
+logging:
+  level:
+    root: info
+
+eureka:
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints.web.exposure.include: "*"
+  endpoint.health.show-details: ALWAYS
