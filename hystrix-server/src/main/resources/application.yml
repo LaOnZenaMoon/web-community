@@ -1,0 +1,15 @@
+server:
+  port: 9082
+
+spring:
+  application:
+    name: hystrix-server
+
+  profiles:
+    active: local
+
+logging:
+  level:
+    root: info
+
+turbine.clusterNameExpression: new String("default")
