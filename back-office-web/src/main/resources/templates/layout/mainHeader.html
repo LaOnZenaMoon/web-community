@@ -1,0 +1,85 @@
+<th:block th:fragment="header" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
+            </a>
+            <form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="" class="form-control"
+                           name="top-search" id="top-search">
+                </div>
+            </form>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <span class="m-r-sm text-muted welcome-message">Welcome to Administrator.</span>
+            </li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#" onclick="$('#chatting_modal').modal('show')">
+                    <i class="fa fa-envelope"></i>  <span class="label label-warning">Chat</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#" onclick="lozm.func.signOut()">
+                    <i class="fa fa-power-off"></i>
+                </a>
+            </li>
+        </ul>
+
+        <div class="modal inmodal" tabindex="-1" role="dialog" aria-hidden="true" id="chatting_modal">
+            <div class="modal-dialog">
+                <div class="modal-content animated fadeIn">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <i class="fa fa-check-square-o modal-icon"></i>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="chatroom_name">Chatroom name</label>
+                            <input type="text" class="form-control" id="chatroom_name" name="chatroom_name">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" onclick="chatting.connect('#chattingArea', $('#chatroom_name').val())">Connect</button>
+                        <button type="submit" class="btn btn-primary" onclick="chatting.disconnect('#chattingArea')">Disconnect</button>
+                    </div>
+
+                    <div class="modal-body" id="chattingArea">
+
+                    </div>
+
+                    <form id="chatting_contents_form">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="chatroom_contents">Contents</label>
+                                <input type="text" class="form-control" id="chatroom_contents" name="chatroom_contents">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" onclick="">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#chatting_contents_form").validate({
+                submitHandler: function(form) {
+                    chatting.sendMessage('#chatroom_contents')
+                },
+                rules: {
+                    chatroom_contents: {required: true},
+                },
+            });
+        });
+    </script>
+
+</th:block>

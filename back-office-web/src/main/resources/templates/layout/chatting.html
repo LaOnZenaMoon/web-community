@@ -1,0 +1,105 @@
+<th:block th:fragment="chatting()" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <script th:src="@{/libs/inspinia/js/socket/sockjs.min.js}"></script>
+    <script th:src="@{/libs/inspinia/js/socket/stomp.min.js}"></script>
+
+    <script type="text/javascript">
+        var chatting = {
+            stomp: null,
+            displayArea: null,
+            topic: null,
+            connect: function (_displayArea, _topic) {
+                chatting.stomp = Stomp.over(new SockJS(lozm.GATEWAY_SERVER + "/chatting-api/lozm-chat"));
+                chatting.stomp.connect({}, function (_frame) {
+                    chatting.setConnected(_displayArea, _topic);
+                    chatting.stomp.subscribe('/topic/' + chatting.topic, function (_chat) {
+                        chatting.displayMessage(JSON.parse(_chat.body));
+                    });
+                    chatting.chatIn();
+                });
+            },
+            disconnect: function (_displayArea) {
+                chatting.chatOut();
+                if (chatting.stomp !== null) {
+                    chatting.stomp.disconnect();
+                }
+                chatting.clearDisplayArea();
+            },
+            displayMessage: function (_result) {
+                $(chatting.displayArea).append(
+                    "<li>" +
+                    "  <div class='dropdown-messages-box'>" +
+                    // "    <a class='dropdown-item float-left'>" +
+                    // "      <img class='rounded-circle' th:src='@{/images/agent.png}'/>" +
+                    // "    </a>" +
+                    "    <div class='media-body'>" +
+                    "      <div class='media-body'>" +
+                    "        <small class='float-right text-navy'>"+_result.sendDateTime+"</small>" +
+                    "        <strong>"+_result.writer+"</strong><br>" +
+                    "        <small class='text-muted'>"+_result.message+"</small>" +
+                    "      </div>" +
+                    "    </div>" +
+                    "  </div>" +
+                    "</li>" +
+                    "<li class='dropdown-divider'></li>"
+                );
+            },
+            setConnected: function (_displayArea, _topic) {
+                chatting.clearDisplayArea();
+                chatting.displayArea = _displayArea;
+                chatting.topic = _topic;
+            },
+            sendMessage: function (_messageArea) {
+                chatting.stomp.send('/publish/chat/message',
+                    {},
+                    JSON.stringify({
+                        topic: chatting.topic,
+                        writer: lozm.func.getUserInfoFromJwt().name,
+                        message: $(_messageArea).val()
+                    })
+                );
+
+                $(_messageArea).val("");
+            },
+            chatIn: function () {
+                chatting.stomp.send('/publish/chat/in',
+                    {},
+                    JSON.stringify({
+                        topic: chatting.topic,
+                        writer: lozm.func.getUserInfoFromJwt().name,
+                        message: ""
+                    })
+                );
+            },
+            chatOut: function () {
+                chatting.stomp.send('/publish/chat/out',
+                    {},
+                    JSON.stringify({
+                        topic: chatting.topic,
+                        writer: lozm.func.getUserInfoFromJwt().name,
+                        message: ""
+                    })
+                );
+            },
+            clearDisplayArea: function () {
+                $(chatting.displayArea).html("");
+            },
+            getTopicList: function () {
+                lozm.func.requestGet({
+                    url: lozm.GATEWAY_SERVER + "/chatting-api/api/topic",
+                    callback: {
+                        success: function (result) {
+                            console.log(result);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    }
+                });
+            }
+        };
+    </script>
+
+</th:block>

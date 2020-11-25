@@ -4,4 +4,4 @@ include 'gateway-server'
 include 'auth-api'
 include 'core'
 include 'community-api'
-
+include 'back-office-web'

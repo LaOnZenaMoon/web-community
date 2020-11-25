@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <title>LOZM Platform - Admin</title>
+
+    <th:block th:replace="@{layout/default.html} :: default"></th:block>
+</head>
+
+<body class="gray-bg">
+    <div class="loginColumns animated fadeInDown">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div th:style="'background-image:url(' + @{/images/contract.jpg} + '); background-repeat: no-repeat; background-size: cover; background-position: center; height: 500px;'"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox-content" style="height: 500px;">
+                <form class="m-t" id="post_signForm">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="identifier" id="identifier">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" id="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+                    <a href="#">
+                        <small>Forgot password?</small>
+                    </a>
+
+                    <p class="text-muted text-center">
+                        <small>Do not have an account?</small>
+                    </p>
+                    <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>
+                </form>
+                <p class="m-t">
+                    <small>LaOnZenaMoon Platform &copy; 2020</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-6">
+            Copyright LaOnZenaMoon
+        </div>
+        <div class="col-md-6 text-right">
+            <small>© 2020-</small>
+        </div>
+    </div>
+</div>
+</body>
+
+<script th:inline="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $("#post_signForm").validate({
+            submitHandler: function(form) {
+                sign.submit();
+            },
+            rules: {
+                identifier: {
+                    required: true,
+                },
+                password: {
+                    required: true,
+                },
+            }
+        });
+    });
+
+    var sign = {
+        submit: function () {
+            lozm.func.requestPost({
+                url: lozm.GATEWAY_SERVER + "/authentication-server/api/sign/in",
+                data: {
+                    identifier: $("#identifier").val(),
+                    password: $("#password").val()
+                },
+                // async: false,
+                callback: {
+                    success: function (result) {
+                        if(result.success) {
+                            lozm.func.insertJwt(result.data.token);
+                            lozm.func.movePage(result.data.previousPage);
+                        } else {
+                            lozm.func.alertWarning(result.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        lozm.func.alertWarning();
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                    }
+                }
+            });
+        }
+    };
+</script>
+
+</html>
