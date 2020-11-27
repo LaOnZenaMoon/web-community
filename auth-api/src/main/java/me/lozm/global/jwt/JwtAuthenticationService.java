@@ -36,6 +36,8 @@ public class JwtAuthenticationService {
             throw new RuntimeException("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
             throw new RuntimeException("INVALID_CREDENTIALS", e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

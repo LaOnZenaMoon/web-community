@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Entity @Table(schema = "LOZM", name = "USERS")
 @Getter @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED) @AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class User extends BaseEntity {
 
     @Id @GeneratedValue

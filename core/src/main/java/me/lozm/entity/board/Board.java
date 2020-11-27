@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(schema = "LOZM", name = "BOARD")
 @Getter @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED) @AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class Board extends BaseEntity {
 
     @Id

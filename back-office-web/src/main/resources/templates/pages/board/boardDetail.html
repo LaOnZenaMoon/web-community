@@ -150,7 +150,7 @@
 			id: window.location.pathname.split("/board/")[1],
 			getDetail: function() {
 				lozm.func.requestGet({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/board/" + board.id,
+					url: lozm.GATEWAY_SERVER + "/community-api/api/board/" + board.id,
 					callback: {
 						success: function (result) {
 							if(result.success) {
@@ -170,7 +170,7 @@
 			},
 			put: function () {
 				lozm.func.requestPut({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/board",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/board",
 					data: {
 						id: board.id,
 						boardType: $("#put_boardType").val(),
@@ -256,7 +256,7 @@
 			},
 			getGridData: function () {
 				lozm.func.requestGet({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/board/" + board.id + "/comment",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/board/" + board.id + "/comment",
 					callback: {
 						success: function (result) {
 							if(result.success) {
@@ -274,7 +274,7 @@
 			},
 			post: function () {
 				lozm.func.requestPost({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/board/comment",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/board/comment",
 					data: {
 						boardId: board.id,
 						commentType: $("#post_comment_type").val(),
@@ -299,7 +299,7 @@
 			},
 			delete: function (list) {
 				lozm.func.requestDelete({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/board/comment",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/board/comment",
 					data: {
 						list: list
 					},

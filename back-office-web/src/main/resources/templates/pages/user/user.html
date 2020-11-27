@@ -242,7 +242,7 @@
 			},
 			getGridData: function () {
 				lozm.func.requestGet({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/user",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/user",
 					callback: {
 						success: function (result) {
 							if(result.success) {
@@ -260,7 +260,7 @@
 			},
 			post: function () {
 				lozm.func.requestPost({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/user",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/user",
 					data: {
 						name: $("#post_name").val(),
 						identifier: $("#post_identifier").val(),
@@ -286,7 +286,7 @@
 			},
 			put: function () {
 				lozm.func.requestPut({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/user",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/user",
 					data: {
 						id: $("#put_id").val(),
 						name: $("#put_name").val(),
@@ -313,7 +313,7 @@
 			},
 			delete: function (list) {
 				lozm.func.requestDelete({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/user",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/user",
 					data: {
 						list: list
 					},

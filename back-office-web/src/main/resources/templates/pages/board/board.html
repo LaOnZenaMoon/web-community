@@ -153,7 +153,7 @@
 
 			getGridData: function () {
 				lozm.func.requestGet({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/board/boardType/ALL",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/board/boardType/ALL",
 					callback: {
 						success: function (result) {
 
@@ -172,7 +172,7 @@
 			},
 			post: function () {
 				lozm.func.requestPost({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/board",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/board",
 					data: {
 						boardType: $("#post_board_type").val(),
 						contentType: $("#post_content_type").val(),
@@ -198,7 +198,7 @@
 			},
 			delete: function (list) {
 				lozm.func.requestDelete({
-					url: lozm.GATEWAY_SERVER + "/platform-api/api/board",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/board",
 					data: {
 						list: list
 					},

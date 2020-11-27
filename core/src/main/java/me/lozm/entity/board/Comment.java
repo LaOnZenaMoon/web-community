@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(schema = "LOZM", name = "COMMENTS")
 @Getter @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED) @AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class Comment extends BaseEntity {
 
     @Id

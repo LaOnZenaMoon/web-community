@@ -16,9 +16,13 @@ logging:
 zuul:
   igoredServices: '*'
   routes:
-    sample-api:
-      path: /sample-api/**
-      serviceId: sample-api
+    auth-api:
+      path: /auth-api/**
+      serviceId: auth-api
+      stripPrefix: true
+    community-api:
+      path: /community-api/**
+      serviceId: community-api
       stripPrefix: true
 
   ws:

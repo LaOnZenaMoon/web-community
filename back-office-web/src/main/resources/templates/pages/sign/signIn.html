@@ -77,7 +77,7 @@
     var sign = {
         submit: function () {
             lozm.func.requestPost({
-                url: lozm.GATEWAY_SERVER + "/authentication-server/api/sign/in",
+                url: lozm.GATEWAY_SERVER + "/auth-api/api/sign/in",
                 data: {
                     identifier: $("#identifier").val(),
                     password: $("#password").val()
@@ -93,7 +93,9 @@
                         }
                     },
                     error: function (xhr, status, error) {
-                        lozm.func.alertWarning();
+                        var _message = "";
+                        if (xhr.status === 401) _message = "계정 정보가 잘못되었습니다.";
+                        lozm.func.alertWarning(_message);
                         console.log(xhr);
                         console.log(status);
                         console.log(error);
