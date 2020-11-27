@@ -1,11 +1,14 @@
 package me.lozm.api.board;
 
 import lombok.RequiredArgsConstructor;
+import me.lozm.object.code.BoardType;
 import me.lozm.object.dto.ApiResponseCode;
 import me.lozm.object.dto.ApiResponseDto;
 import me.lozm.object.dto.board.*;
 import me.lozm.object.vo.board.BoardVo;
 import me.lozm.object.vo.board.CommentVo;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,9 +22,9 @@ public class BoardAPIController {
 
 
     @GetMapping("/boardType/{boardType}")
-    public ApiResponseDto getBoard(@PathVariable(value = "boardType") String boardType) {
+    public ApiResponseDto getBoard(@PathVariable(value = "boardType") BoardType boardType, Pageable pageable) {
         GetBoardDto.Response resDto = new GetBoardDto.Response();
-        resDto.setList(boardService.getBoardList(boardType));
+        resDto.setList(boardService.getBoardList(boardType, pageable));
 
         return ApiResponseDto.createException(ApiResponseCode.OK, resDto);
     }

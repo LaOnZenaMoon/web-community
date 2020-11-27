@@ -5,13 +5,20 @@ import me.lozm.entity.board.Board;
 import me.lozm.entity.board.Comment;
 import me.lozm.global.exception.ServiceException;
 import me.lozm.object.code.BoardType;
+import me.lozm.object.dto.board.GetBoardDto;
 import me.lozm.object.vo.board.BoardVo;
 import me.lozm.object.vo.board.CommentVo;
 import me.lozm.repository.board.BoardRepository;
+import me.lozm.repository.board.BoardRepositorySupport;
 import me.lozm.repository.board.CommentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,14 +29,13 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final BoardRepositorySupport boardRepositorySupport;
 
 
-    public List<Board> getBoardList(String boardType) {
-        if(String.valueOf(BoardType.ALL).equals(boardType)) {
-            return boardRepository.selectBoardList();
-        }
-
-        return boardRepository.selectBoardListByBoardType(boardType);
+    public Page<Board> getBoardList(BoardType boardType, Pageable pageable) {
+        List<Board> boards = boardRepositorySupport.selectBoardListByBoardType(boardType, pageable);
+        long count = boardRepositorySupport.selectCountBoardListByBoardType(boardType);
+        return new PageImpl<>(boards, pageable, count);
     }
 
     public Board getBoardDetail(Long boardId) {
