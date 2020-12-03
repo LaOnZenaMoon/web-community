@@ -12,8 +12,6 @@ public class InterceptorConfig extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession httpSession = request.getSession();
-
         return super.preHandle(request, response, handler);
     }
 
