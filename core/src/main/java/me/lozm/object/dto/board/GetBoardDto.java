@@ -19,7 +19,7 @@ public class GetBoardDto {
     private String contentType;
     private String title;
     private String content;
-    private List<Comment> comments;
+    private List<GetCommentDto> comments;
 
 
     public static GetBoardDto of(Board board) {
@@ -29,6 +29,15 @@ public class GetBoardDto {
                 .contentType(board.getContentType())
                 .title(board.getTitle())
                 .content(board.getContent())
+                .comments(board.getComments()
+                        .stream()
+                        .map(comment -> GetCommentDto.builder()
+                                .id(comment.getId())
+                                .commentType(comment.getCommentType())
+                                .flag(comment.getFlag())
+                                .content(comment.getContent())
+                                .build())
+                        .collect(Collectors.toList()))
                 .build();
     }
 
