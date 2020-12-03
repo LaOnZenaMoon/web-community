@@ -11,3 +11,14 @@ endif::[]
 :operation-curl-request-title: Example request
 :operation-http-response-title: Example response
 
+== 게시판
+=== 게시판 조회
+`GET` 요청을 사용하여, 게시판을 조회할 수 있다.
+
+==== Request
+include::{snippets}/get-board/path-parameters.adoc[]
+include::{snippets}/get-board/http-request.adoc[]
+
+==== Response
+include::{snippets}/get-board/response-fields.adoc[]
+include::{snippets}/get-board/http-response.adoc[]

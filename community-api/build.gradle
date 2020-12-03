@@ -1,3 +1,11 @@
+plugins {
+    id 'org.asciidoctor.convert' version '2.4.0'
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
 dependencies {
     compile project(':core')
     compile 'mysql:mysql-connector-java'

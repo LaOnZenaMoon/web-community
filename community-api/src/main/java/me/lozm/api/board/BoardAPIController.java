@@ -7,7 +7,6 @@ import me.lozm.object.dto.ApiResponseDto;
 import me.lozm.object.dto.board.*;
 import me.lozm.object.vo.board.BoardVo;
 import me.lozm.object.vo.board.CommentVo;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
