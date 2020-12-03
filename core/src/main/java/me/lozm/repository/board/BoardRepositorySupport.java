@@ -3,6 +3,7 @@ package me.lozm.repository.board;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import me.lozm.entity.board.Board;
+import me.lozm.entity.board.Comment;
 import me.lozm.object.code.BoardType;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static me.lozm.entity.board.QBoard.board;
+import static me.lozm.entity.board.QComment.comment;
 
 
 @Repository
@@ -45,6 +47,7 @@ public class BoardRepositorySupport {
         return jpaQueryFactory
                 .select(board)
                 .from(board)
+                        .join(board.comments, comment).fetchJoin()
                 .where(
                         board.boardType.eq(String.valueOf(boardType))
                 )
