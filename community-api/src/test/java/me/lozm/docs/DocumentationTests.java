@@ -42,68 +42,64 @@ public class DocumentationTests {
 
     @Test
     public void getBoard() throws Exception {
-        try {
-            //Given
-            //When
-            ResultActions result = mockMvc.perform(
-                    RestDocumentationRequestBuilders.get("/api/board/boardType/{boardType}",
-                            String.valueOf(BoardType.MAGAZINE)
-                    ).accept(MediaType.APPLICATION_JSON)
-            );
+        //Given
+        //When
+        ResultActions result = mockMvc.perform(
+                RestDocumentationRequestBuilders.get("/api/board/boardType/{boardType}",
+                        String.valueOf(BoardType.MAGAZINE)
+                ).accept(MediaType.APPLICATION_JSON)
+        );
 
-            //Then
-            result.andExpect(status().is(200))
-                    .andDo(document("get-board",
-                            getDocumentRequest(),
-                            getDocumentResponse(),
-                            pathParameters(
-                                    parameterWithName("boardType").description("게시판 유형").attributes(getYnFormat())
-                            ),
-                            responseFields(
-                                    fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("API 호출 성공여부"),
-                                    fieldWithPath("code").type(JsonFieldType.STRING).description("API 호출 코드"),
-                                    fieldWithPath("message").type(JsonFieldType.STRING).description("API 호출 메시지"),
-                                    fieldWithPath("data").type(JsonFieldType.OBJECT).description("API 호출 데이터"),
-                                    fieldWithPath("data.list").type(JsonFieldType.OBJECT).description(""),
-                                    fieldWithPath("data.list.content").type(JsonFieldType.ARRAY).description(""),
-                                    fieldWithPath("data.list.content[].id").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.content[].boardType").type(JsonFieldType.STRING).description(""),
-                                    fieldWithPath("data.list.content[].contentType").type(JsonFieldType.STRING).description(""),
-                                    fieldWithPath("data.list.content[].title").type(JsonFieldType.STRING).description(""),
-                                    fieldWithPath("data.list.content[].content").type(JsonFieldType.STRING).description(""),
-                                    fieldWithPath("data.list.content[].comments").type(JsonFieldType.ARRAY).description(""),
-                                    fieldWithPath("data.list.content[].comments[].id").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.content[].comments[].commentType").type(JsonFieldType.STRING).description(""),
-                                    fieldWithPath("data.list.content[].comments[].flag").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.content[].comments[].content").type(JsonFieldType.STRING).description(""),
-                                    fieldWithPath("data.list.pageable").type(JsonFieldType.OBJECT).description(""),
-                                    fieldWithPath("data.list.pageable.sort").type(JsonFieldType.OBJECT).description(""),
-                                    fieldWithPath("data.list.pageable.sort.sorted").type(JsonFieldType.BOOLEAN).description(""),
-                                    fieldWithPath("data.list.pageable.sort.unsorted").type(JsonFieldType.BOOLEAN).description(""),
-                                    fieldWithPath("data.list.pageable.sort.empty").type(JsonFieldType.BOOLEAN).description(""),
-                                    fieldWithPath("data.list.pageable.pageNumber").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.pageable.pageSize").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.pageable.offset").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.pageable.unpaged").type(JsonFieldType.BOOLEAN).description(""),
-                                    fieldWithPath("data.list.pageable.paged").type(JsonFieldType.BOOLEAN).description(""),
-                                    fieldWithPath("data.list.last").type(JsonFieldType.BOOLEAN).description(""),
-                                    fieldWithPath("data.list.totalPages").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.totalElements").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.numberOfElements").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.first").type(JsonFieldType.BOOLEAN).description(""),
-                                    fieldWithPath("data.list.sort").type(JsonFieldType.OBJECT).description(""),
-                                    fieldWithPath("data.list.sort.sorted").type(JsonFieldType.BOOLEAN).description(""),
-                                    fieldWithPath("data.list.sort.unsorted").type(JsonFieldType.BOOLEAN).description(""),
-                                    fieldWithPath("data.list.sort.empty").type(JsonFieldType.BOOLEAN).description(""),
-                                    fieldWithPath("data.list.size").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.number").type(JsonFieldType.NUMBER).description(""),
-                                    fieldWithPath("data.list.empty").type(JsonFieldType.BOOLEAN).description("")
-                            )
-                    ));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        //Then
+        result.andExpect(status().is(200))
+                .andDo(document("get-board",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("boardType").description("Board type").attributes(getYnFormat())
+                        ),
+                        responseFields(
+                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message"),
+                                fieldWithPath("data").type(JsonFieldType.OBJECT).description("Invoking API data"),
+                                fieldWithPath("data.list").type(JsonFieldType.OBJECT).description("Board list"),
+                                fieldWithPath("data.list.content").type(JsonFieldType.ARRAY).description("Board content"),
+                                fieldWithPath("data.list.content[].id").type(JsonFieldType.NUMBER).description("Board ID"),
+                                fieldWithPath("data.list.content[].boardType").type(JsonFieldType.STRING).description("Board type"),
+                                fieldWithPath("data.list.content[].contentType").type(JsonFieldType.STRING).description("Board content type"),
+                                fieldWithPath("data.list.content[].title").type(JsonFieldType.STRING).description("Board title"),
+                                fieldWithPath("data.list.content[].content").type(JsonFieldType.STRING).description("Board content"),
+                                fieldWithPath("data.list.content[].flag").type(JsonFieldType.NUMBER).description("Board flag"),
+                                fieldWithPath("data.list.content[].comments").type(JsonFieldType.ARRAY).description("Comments belonging to the board"),
+                                fieldWithPath("data.list.content[].comments[].id").type(JsonFieldType.NUMBER).description("Comment ID"),
+                                fieldWithPath("data.list.content[].comments[].commentType").type(JsonFieldType.STRING).description("Comment type"),
+                                fieldWithPath("data.list.content[].comments[].flag").type(JsonFieldType.NUMBER).description("Comment flag"),
+                                fieldWithPath("data.list.content[].comments[].content").type(JsonFieldType.STRING).description("Comment content"),
+                                fieldWithPath("data.list.pageable").type(JsonFieldType.OBJECT).description(""),
+                                fieldWithPath("data.list.pageable.sort").type(JsonFieldType.OBJECT).description(""),
+                                fieldWithPath("data.list.pageable.sort.sorted").type(JsonFieldType.BOOLEAN).description(""),
+                                fieldWithPath("data.list.pageable.sort.unsorted").type(JsonFieldType.BOOLEAN).description(""),
+                                fieldWithPath("data.list.pageable.sort.empty").type(JsonFieldType.BOOLEAN).description(""),
+                                fieldWithPath("data.list.pageable.pageNumber").type(JsonFieldType.NUMBER).description(""),
+                                fieldWithPath("data.list.pageable.pageSize").type(JsonFieldType.NUMBER).description(""),
+                                fieldWithPath("data.list.pageable.offset").type(JsonFieldType.NUMBER).description(""),
+                                fieldWithPath("data.list.pageable.unpaged").type(JsonFieldType.BOOLEAN).description(""),
+                                fieldWithPath("data.list.pageable.paged").type(JsonFieldType.BOOLEAN).description(""),
+                                fieldWithPath("data.list.last").type(JsonFieldType.BOOLEAN).description(""),
+                                fieldWithPath("data.list.totalPages").type(JsonFieldType.NUMBER).description(""),
+                                fieldWithPath("data.list.totalElements").type(JsonFieldType.NUMBER).description(""),
+                                fieldWithPath("data.list.numberOfElements").type(JsonFieldType.NUMBER).description(""),
+                                fieldWithPath("data.list.first").type(JsonFieldType.BOOLEAN).description(""),
+                                fieldWithPath("data.list.sort").type(JsonFieldType.OBJECT).description(""),
+                                fieldWithPath("data.list.sort.sorted").type(JsonFieldType.BOOLEAN).description(""),
+                                fieldWithPath("data.list.sort.unsorted").type(JsonFieldType.BOOLEAN).description(""),
+                                fieldWithPath("data.list.sort.empty").type(JsonFieldType.BOOLEAN).description(""),
+                                fieldWithPath("data.list.size").type(JsonFieldType.NUMBER).description(""),
+                                fieldWithPath("data.list.number").type(JsonFieldType.NUMBER).description(""),
+                                fieldWithPath("data.list.empty").type(JsonFieldType.BOOLEAN).description("")
+                        )
+                ));
     }
 
 //    @Test

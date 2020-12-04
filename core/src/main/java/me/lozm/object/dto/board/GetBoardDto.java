@@ -19,6 +19,7 @@ public class GetBoardDto {
     private String contentType;
     private String title;
     private String content;
+    private int flag;
     private List<GetCommentDto> comments;
 
 
@@ -29,6 +30,7 @@ public class GetBoardDto {
                 .contentType(board.getContentType())
                 .title(board.getTitle())
                 .content(board.getContent())
+                .flag(board.getFlag())
                 .comments(board.getComments()
                         .stream()
                         .map(comment -> GetCommentDto.builder()

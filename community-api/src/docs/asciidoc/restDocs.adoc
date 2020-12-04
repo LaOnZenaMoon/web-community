@@ -11,9 +11,9 @@ endif::[]
 :operation-curl-request-title: Example request
 :operation-http-response-title: Example response
 
-== 게시판
-=== 게시판 조회
-`GET` 요청을 사용하여, 게시판을 조회할 수 있다.
+== Board
+=== Get the board list
+Using `GET` method, search the board list and the comment list belonging to each board.
 
 ==== Request
 include::{snippets}/get-board/path-parameters.adoc[]

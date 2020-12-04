@@ -3,9 +3,7 @@ package me.lozm.repository.board;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import me.lozm.entity.board.Board;
-import me.lozm.entity.board.Comment;
 import me.lozm.object.code.BoardType;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -22,28 +20,7 @@ public class BoardRepositorySupport {
     private final JPAQueryFactory jpaQueryFactory;
 
 
-    public List<Board> selectBoardList(PageRequest pageRequest) {
-        return jpaQueryFactory
-                .select(board)
-                .from(board)
-                .orderBy(board.createdDt.desc())
-                .offset(pageRequest.getPageNumber())
-                .limit(pageRequest.getPageSize())
-                .fetch();
-    }
-
-    public List<Board> selectBoardListByBoardType(String boardType) {
-        return jpaQueryFactory
-                .select(board)
-                .from(board)
-                .where(
-                        board.boardType.eq(boardType)
-                )
-                .orderBy(board.createdDt.desc())
-                .fetch();
-    }
-
-    public List<Board> selectBoardListByBoardType(BoardType boardType, Pageable pageable) {
+    public List<Board> getBoardListByBoardType(BoardType boardType, Pageable pageable) {
         return jpaQueryFactory
                 .select(board)
                 .from(board)
@@ -57,7 +34,7 @@ public class BoardRepositorySupport {
                 .fetch();
     }
 
-    public long selectCountBoardListByBoardType(BoardType boardType) {
+    public long getTotalCountByBoardType(BoardType boardType) {
         return jpaQueryFactory
                 .select(board)
                 .from(board)

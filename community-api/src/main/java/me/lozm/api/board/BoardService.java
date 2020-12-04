@@ -30,9 +30,9 @@ public class BoardService {
 
 
     public Page<Board> getBoardList(BoardType boardType, Pageable pageable) {
-        List<Board> boards = boardRepositorySupport.selectBoardListByBoardType(boardType, pageable);
-        long totalCount = boardRepositorySupport.selectCountBoardListByBoardType(boardType);
-        return new PageImpl<>(boards, pageable, totalCount);
+        List<Board> boardList = boardRepositorySupport.getBoardListByBoardType(boardType, pageable);
+        long totalCount = boardRepositorySupport.getTotalCountByBoardType(boardType);
+        return new PageImpl<>(boardList, pageable, totalCount);
     }
 
     public Board getBoardDetail(Long boardId) {
