@@ -3,6 +3,7 @@ package me.lozm.docs;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.lozm.entity.board.Board;
 import me.lozm.object.code.BoardType;
+import me.lozm.object.dto.board.BoardDeleteDto;
 import me.lozm.object.dto.board.BoardPostDto;
 import me.lozm.object.dto.board.BoardPutDto;
 import me.lozm.repository.board.BoardRepository;
@@ -22,15 +23,16 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
-import static me.lozm.data.BoardBulkInsert.makeTestBoardPostDto;
-import static me.lozm.data.BoardBulkInsert.makeTestBoardPutDto;
+import static me.lozm.data.BoardTestDto.makeTestBoardPostDto;
+import static me.lozm.data.BoardTestDto.makeTestBoardPutDto;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentRequest;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentResponse;
 import static me.lozm.docs.DocumentFormatGenerator.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
@@ -275,37 +277,49 @@ public class BoardDocumentationTests {
                 ));
     }
 
-//    @Test
-//    @Rollback
-//    public void deleteSample() {
-//        try {
-//            //Given
-//
-//            //When
-//            ResultActions result = mockMvc.perform(
-//                    delete("/delete/url")
-//                            .contentType(MediaType.APPLICATION_JSON)
-//                            .content(objectMapper.writeValueAsString(new Object())) //Delete DTO
-//            );
-//
-//            //Then
-//            result.andExpect(status().is(200))
-//                    .andDo(document("delete-sample",
-//                            getDocumentRequest(),
-//                            getDocumentResponse(),
-//                            requestFields(
-//                                    fieldWithPath("sample").type(JsonFieldType.STRING).description("sample").attributes(getDateFormat())
-//                            ),
-//                            responseFields(
-//                                    fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("API 호출 성공여부"),
-//                                    fieldWithPath("code").type(JsonFieldType.STRING).description("API 호출 코드"),
-//                                    fieldWithPath("message").type(JsonFieldType.STRING).description("API 호출 메시지"),
-//                                    fieldWithPath("data").type(JsonFieldType.OBJECT).description("API 호출 데이터")
-//                            )
-//                    ));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Test
+    @Rollback
+    public void deleteSample() throws Exception {
+        //Given
+        List<Board> boardList = boardRepository.findAll();
+        List<BoardDeleteDto> deletedBoardList = boardList.stream()
+                .filter((board) -> board.getFlag() != 0)
+                .map((board) ->
+                        BoardDeleteDto.builder()
+                                .id(board.getId())
+                                .build()
+                )
+                .limit(10)
+                .collect(Collectors.toList());
+
+        BoardDeleteDto.Request reqDto = new BoardDeleteDto.Request();
+        reqDto.setList(deletedBoardList);
+
+        //When
+        ResultActions result = mockMvc.perform(
+                delete("/api/board")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(reqDto))
+        );
+
+        //Then
+        result.andExpect(status().is(200))
+                .andDo(document("delete-board",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("list").type(JsonFieldType.ARRAY).description("the list of deleted Board IDs"),
+                                fieldWithPath("list[].id").type(JsonFieldType.NUMBER).description("Board ID"),
+                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").ignored(),
+                                fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").optional()
+                        ),
+                        responseFields(
+                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message").optional(),
+                                fieldWithPath("data").type(JsonFieldType.STRING).description("Invoking API data").optional()
+                        )
+                ));
+    }
 
 }
