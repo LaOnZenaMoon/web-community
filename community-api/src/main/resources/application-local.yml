@@ -8,19 +8,19 @@ spring:
     hikari:
       maximum-pool-size: 5
 
-    jpa:
-      database: mysql
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-      hibernate:
-        ddl-auto: update
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create
 
-      properties:
-        hibernate:
-          default_batch_fetch_size: 500
-          jdbc:
-            batch_size: 100
-            order_inserts: true
-        format_sql: true
+    properties:
+      hibernate:
+        default_batch_fetch_size: 500
+        jdbc:
+          batch_size: 100
+          order_inserts: true
+      format_sql: true
 
 management:
   endpoints:
