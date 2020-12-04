@@ -13,12 +13,34 @@ endif::[]
 
 == Board
 === Get the board list
-Using `GET` method, search the board list and the comment list belonging to each board.
+Using `GET` method, search the board list.
 
 ==== Request
-include::{snippets}/get-board/path-parameters.adoc[]
-include::{snippets}/get-board/http-request.adoc[]
+include::{snippets}/get-board-list/path-parameters.adoc[]
+include::{snippets}/get-board-list/http-request.adoc[]
 
 ==== Response
-include::{snippets}/get-board/response-fields.adoc[]
-include::{snippets}/get-board/http-response.adoc[]
+include::{snippets}/get-board-list/response-fields.adoc[]
+include::{snippets}/get-board-list/http-response.adoc[]
+
+=== Get the board detail
+Using `GET` method, search the board detail.
+
+==== Request
+include::{snippets}/get-board-detail/path-parameters.adoc[]
+include::{snippets}/get-board-detail/http-request.adoc[]
+
+==== Response
+include::{snippets}/get-board-detail/response-fields.adoc[]
+include::{snippets}/get-board-detail/http-response.adoc[]
+
+=== Get the comment list
+Using `GET` method, search the comment list belonging to each board.
+
+==== Request
+include::{snippets}/get-comment-list/path-parameters.adoc[]
+include::{snippets}/get-comment-list/http-request.adoc[]
+
+==== Response
+include::{snippets}/get-comment-list/response-fields.adoc[]
+include::{snippets}/get-comment-list/http-response.adoc[]

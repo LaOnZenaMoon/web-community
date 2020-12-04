@@ -3,6 +3,7 @@ package me.lozm.repository.board;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import me.lozm.entity.board.Board;
+import me.lozm.entity.board.Comment;
 import me.lozm.object.code.BoardType;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -34,12 +35,35 @@ public class BoardRepositorySupport {
                 .fetch();
     }
 
-    public long getTotalCountByBoardType(BoardType boardType) {
+    public long getBoardTotalCountByBoardType(BoardType boardType) {
         return jpaQueryFactory
                 .select(board)
                 .from(board)
                 .where(
                         board.boardType.eq(String.valueOf(boardType))
+                )
+                .fetchCount();
+    }
+
+    public List<Comment> getCommentListByBoardId(Long boardId, Pageable pageable) {
+        return jpaQueryFactory
+                .select(comment)
+                .from(comment)
+                .where(
+                        comment.board.id.eq(boardId)
+                )
+                .orderBy(comment.createdDt.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
+
+    public long getCommentTotalCountByBoardType(Long boardId) {
+        return jpaQueryFactory
+                .select(comment)
+                .from(comment)
+                .where(
+                        comment.board.id.eq(boardId)
                 )
                 .fetchCount();
     }

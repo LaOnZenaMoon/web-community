@@ -21,7 +21,7 @@ public class BoardAPIController {
 
 
     @GetMapping("/boardType/{boardType}")
-    public ApiResponseDto getBoard(@PathVariable(value = "boardType") BoardType boardType, Pageable pageable) {
+    public ApiResponseDto getBoardList(@PathVariable(value = "boardType") BoardType boardType, Pageable pageable) {
         GetBoardDto.Response resDto = new GetBoardDto.Response();
         resDto.setList(boardService.getBoardList(boardType, pageable));
 
@@ -57,9 +57,9 @@ public class BoardAPIController {
     }
 
     @GetMapping("/{boardId}/comment")
-    public ApiResponseDto getComment(@PathVariable(value = "boardId") Long boardId) {
+    public ApiResponseDto getCommentList(@PathVariable(value = "boardId") Long boardId, Pageable pageable) {
         GetCommentDto.Response resDto = new GetCommentDto.Response();
-        resDto.setList(boardService.getCommentList(boardId));
+        resDto.setList(boardService.getCommentList(boardId, pageable));
 
         return ApiResponseDto.createException(ApiResponseCode.OK, resDto);
     }

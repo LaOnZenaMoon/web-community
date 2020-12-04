@@ -2,13 +2,8 @@ package me.lozm.object.dto.board;
 
 import lombok.*;
 import me.lozm.entity.board.Board;
-import me.lozm.entity.board.Comment;
 import me.lozm.object.code.BoardType;
 import org.springframework.data.domain.Page;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
@@ -20,7 +15,6 @@ public class GetBoardDto {
     private String title;
     private String content;
     private int flag;
-    private List<GetCommentDto> comments;
 
 
     public static GetBoardDto of(Board board) {
@@ -31,17 +25,9 @@ public class GetBoardDto {
                 .title(board.getTitle())
                 .content(board.getContent())
                 .flag(board.getFlag())
-                .comments(board.getComments()
-                        .stream()
-                        .map(comment -> GetCommentDto.builder()
-                                .id(comment.getId())
-                                .commentType(comment.getCommentType())
-                                .flag(comment.getFlag())
-                                .content(comment.getContent())
-                                .build())
-                        .collect(Collectors.toList()))
                 .build();
     }
+
 
     @Getter
     public static class Request {

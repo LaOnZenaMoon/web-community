@@ -31,7 +31,7 @@ public class BoardService {
 
     public Page<Board> getBoardList(BoardType boardType, Pageable pageable) {
         List<Board> boardList = boardRepositorySupport.getBoardListByBoardType(boardType, pageable);
-        long totalCount = boardRepositorySupport.getTotalCountByBoardType(boardType);
+        long totalCount = boardRepositorySupport.getBoardTotalCountByBoardType(boardType);
         return new PageImpl<>(boardList, pageable, totalCount);
     }
 
@@ -59,8 +59,10 @@ public class BoardService {
         findBoard.get().deleteBoard(boardVo);
     }
 
-    public List<Comment> getCommentList(Long boardId) {
-        return commentRepository.selectCommentListByBoardId(boardId);
+    public Page<Comment> getCommentList(Long boardId, Pageable pageable) {
+        List<Comment> commentList = boardRepositorySupport.getCommentListByBoardId(boardId, pageable);
+        long totalCount = boardRepositorySupport.getCommentTotalCountByBoardType(boardId);
+        return new PageImpl<>(commentList, pageable, totalCount);
     }
 
     @Transactional
