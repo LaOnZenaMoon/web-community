@@ -14,9 +14,11 @@ import javax.persistence.*;
 @Entity @Table(schema = "LOZM", name = "USERS")
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
+@SequenceGenerator(name = "USER_SEQ_GEN", sequenceName = "USER_SEQ", initialValue = 1, allocationSize = 50)
 public class User extends BaseEntity {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ_GEN")
     @Column(name = "USER_ID")
     private Long id;
 

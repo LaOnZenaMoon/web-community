@@ -10,10 +10,11 @@ import javax.persistence.*;
 @Table(schema = "LOZM", name = "COMMENTS")
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
+@SequenceGenerator(name = "COMMENT_SEQ_GEN", sequenceName = "COMMENT_SEQ", initialValue = 1, allocationSize = 50)
 public class Comment extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMMENT_SEQ_GEN")
     @Column(name = "COMMENT_ID")
     private Long id;
 

@@ -11,10 +11,11 @@ import java.util.List;
 @Table(schema = "LOZM", name = "BOARD")
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
+@SequenceGenerator(name = "BOARD_SEQ_GEN", sequenceName = "BOARD_SEQ", initialValue = 1, allocationSize = 50)
 public class Board extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOARD_SEQ_GEN")
     @Column(name = "BOARD_ID")
     private Long id;
 
