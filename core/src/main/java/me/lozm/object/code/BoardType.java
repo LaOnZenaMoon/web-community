@@ -7,6 +7,6 @@ public enum BoardType {
     MAGAZINE,
     DIARY,
     FREE_CONTENTS,
-    SPORTS
+    SPORTS;
 
 }

@@ -1,10 +1,22 @@
 package me.lozm.docs;
 
+import me.lozm.object.code.BoardType;
 import org.springframework.restdocs.snippet.Attributes;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static org.springframework.restdocs.snippet.Attributes.key;
 
 public interface DocumentFormatGenerator {
+
+    static Attributes.Attribute getBoardType() {
+        String boardTypeArrToString = Arrays.stream(BoardType.values())
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
+
+        return key("format").value(boardTypeArrToString);
+    }
 
     static Attributes.Attribute getDateFormat() {
         return key("format").value("yyyy-MM-dd");

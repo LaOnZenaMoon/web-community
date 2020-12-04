@@ -18,10 +18,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static me.lozm.docs.ApiDocumentUtils.getDocumentRequest;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentResponse;
+import static me.lozm.docs.DocumentFormatGenerator.getBoardType;
 import static me.lozm.docs.DocumentFormatGenerator.getYnFormat;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -35,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @ActiveProfiles("local")
-public class DocumentationTests {
+public class BoardDocumentationTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -63,7 +66,7 @@ public class DocumentationTests {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
-                                parameterWithName("boardType").description("Board type").attributes(getYnFormat())
+                                parameterWithName("boardType").description("Board type").attributes(getBoardType())
                         ),
                         responseFields(
                                 fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
@@ -122,7 +125,7 @@ public class DocumentationTests {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
-                                parameterWithName("boardId").description("Board ID").attributes(getYnFormat())
+                                parameterWithName("boardId").description("Board ID")
                         ),
                         responseFields(
                                 fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
@@ -157,7 +160,7 @@ public class DocumentationTests {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
-                                parameterWithName("boardId").description("Board ID").attributes(getYnFormat())
+                                parameterWithName("boardId").description("Board ID")
                         ),
                         responseFields(
                                 fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
