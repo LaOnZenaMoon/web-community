@@ -22,7 +22,7 @@ public class BoardAPIController {
 
     @GetMapping("/boardType/{boardType}")
     public ApiResponseDto getBoardList(@PathVariable(value = "boardType") BoardType boardType, Pageable pageable) {
-        GetBoardDto.Response resDto = new GetBoardDto.Response();
+        BoardGetDto.Response resDto = new BoardGetDto.Response();
         resDto.setList(boardService.getBoardList(boardType, pageable));
 
         return ApiResponseDto.createException(ApiResponseCode.OK, resDto);
@@ -30,26 +30,24 @@ public class BoardAPIController {
 
     @GetMapping("/{boardId}")
     public ApiResponseDto getBoardDetail(@PathVariable(value = "boardId") Long boardId) {
-        return ApiResponseDto.createException(ApiResponseCode.OK, GetBoardDto.of(boardService.getBoardDetail(boardId)));
+        return ApiResponseDto.createException(ApiResponseCode.OK, BoardGetDto.of(boardService.getBoardDetail(boardId)));
     }
 
     @PostMapping
-    public ApiResponseDto postBoard(@RequestBody @Valid PostBoardDto.Request reqDto) {
+    public ApiResponseDto postBoard(@RequestBody @Valid BoardPostDto.Request reqDto) {
         boardService.save(BoardVo.of(reqDto));
-
         return ApiResponseDto.createException(ApiResponseCode.OK, null);
     }
 
     @PutMapping
-    public ApiResponseDto putBoard(@RequestBody @Valid PutBoardDto.Request reqDto) {
+    public ApiResponseDto putBoard(@RequestBody @Valid BoardPutDto.Request reqDto) {
         boardService.update(BoardVo.of(reqDto));
-
         return ApiResponseDto.createException(ApiResponseCode.OK, null);
     }
 
     @DeleteMapping
-    public ApiResponseDto deleteBoard(@RequestBody @Valid DeleteBoardDto.Request reqDto) {
-        for(DeleteBoardDto dto : reqDto.getList()) {
+    public ApiResponseDto deleteBoard(@RequestBody @Valid BoardDeleteDto.Request reqDto) {
+        for(BoardDeleteDto dto : reqDto.getList()) {
             boardService.delete(BoardVo.of(reqDto, dto));
         }
 
@@ -58,29 +56,29 @@ public class BoardAPIController {
 
     @GetMapping("/{boardId}/comment")
     public ApiResponseDto getCommentList(@PathVariable(value = "boardId") Long boardId, Pageable pageable) {
-        GetCommentDto.Response resDto = new GetCommentDto.Response();
+        CommentGetDto.Response resDto = new CommentGetDto.Response();
         resDto.setList(boardService.getCommentList(boardId, pageable));
 
         return ApiResponseDto.createException(ApiResponseCode.OK, resDto);
     }
 
     @PostMapping("/comment")
-    public ApiResponseDto postComment(@RequestBody @Valid PostCommentDto.Request reqDto) {
+    public ApiResponseDto postComment(@RequestBody @Valid CommentPostDto.Request reqDto) {
         boardService.save(CommentVo.of(reqDto));
 
         return ApiResponseDto.createException(ApiResponseCode.OK, null);
     }
 
     @PutMapping("/comment")
-    public ApiResponseDto putComment(@RequestBody @Valid PutCommentDto.Request reqDto) {
+    public ApiResponseDto putComment(@RequestBody @Valid CommentPutDto.Request reqDto) {
         boardService.update(CommentVo.of(reqDto));
 
         return ApiResponseDto.createException(ApiResponseCode.OK, null);
     }
 
     @DeleteMapping("/comment")
-    public ApiResponseDto deleteComment(@RequestBody @Valid DeleteCommentDto.Request reqDto) {
-        for(DeleteCommentDto dto : reqDto.getList()) {
+    public ApiResponseDto deleteComment(@RequestBody @Valid CommentDeleteDto.Request reqDto) {
+        for(CommentDeleteDto dto : reqDto.getList()) {
             boardService.delete(CommentVo.of(reqDto, dto));
         }
 

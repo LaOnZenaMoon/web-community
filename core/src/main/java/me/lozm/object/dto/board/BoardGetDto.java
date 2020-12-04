@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class GetBoardDto {
+public class BoardGetDto {
 
     private Long id;
     private String boardType;
@@ -17,8 +17,8 @@ public class GetBoardDto {
     private int flag;
 
 
-    public static GetBoardDto of(Board board) {
-        return GetBoardDto.builder()
+    public static BoardGetDto of(Board board) {
+        return BoardGetDto.builder()
                 .id(board.getId())
                 .boardType(board.getBoardType())
                 .contentType(board.getContentType())
@@ -43,10 +43,10 @@ public class GetBoardDto {
 
     @Getter
     public static class Response {
-        Page<GetBoardDto> list;
+        Page<BoardGetDto> list;
 
         public void setList(Page<Board> boardList) {
-            this.list = boardList.map((entity) -> GetBoardDto.of(entity));
+            this.list = boardList.map((entity) -> BoardGetDto.of(entity));
         }
     }
 

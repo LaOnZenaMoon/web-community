@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class DeleteUserDto {
+public class UserDeleteDto {
 
     private Long id;
     private String name;
@@ -20,7 +20,7 @@ public class DeleteUserDto {
     @Getter
     public static class Request extends BaseUserDto {
         @Size(min = 1)
-        private List<DeleteUserDto> list = new ArrayList<>();
+        private List<UserDeleteDto> list = new ArrayList<>();
     }
 
 }

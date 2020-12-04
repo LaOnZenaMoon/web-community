@@ -6,7 +6,7 @@ import me.lozm.object.dto.BaseUserDto;
 
 import javax.validation.constraints.NotNull;
 
-public class PutUserDto {
+public class UserPutDto {
 
     @Getter
     public static class Request extends BaseUserDto {

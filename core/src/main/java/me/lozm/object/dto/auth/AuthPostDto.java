@@ -7,7 +7,7 @@ import me.lozm.object.dto.BaseUserDto;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-public class PostAuthDto {
+public class AuthPostDto {
 
     @Getter
     public static class Request extends BaseUserDto {

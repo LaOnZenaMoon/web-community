@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class GetUserDto {
+public class UserGetDto {
 
     private Long id;
     private String name;
@@ -22,8 +22,8 @@ public class GetUserDto {
     private UsersType type;
 
 
-    public static GetUserDto of(User user) {
-        return GetUserDto.builder()
+    public static UserGetDto of(User user) {
+        return UserGetDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .identifier(user.getIdentifier())
@@ -35,11 +35,11 @@ public class GetUserDto {
 
     @Getter
     public static class Response {
-        List<GetUserDto> list = new ArrayList<>();
+        List<UserGetDto> list = new ArrayList<>();
 
         public void setList(List<User> userList) {
             this.list = userList.stream()
-                    .map(user -> GetUserDto.builder()
+                    .map(user -> UserGetDto.builder()
                             .id(user.getId())
                             .name(user.getName())
                             .identifier(user.getIdentifier())

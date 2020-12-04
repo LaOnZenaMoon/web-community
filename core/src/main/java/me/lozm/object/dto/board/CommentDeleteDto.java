@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class DeleteCommentDto {
+public class CommentDeleteDto {
     @NotNull
     private Long id;
 
     @Getter
     public static class Request extends BaseUserDto {
-        private List<DeleteCommentDto> list = new ArrayList<>();
+        private List<CommentDeleteDto> list = new ArrayList<>();
     }
 
 }

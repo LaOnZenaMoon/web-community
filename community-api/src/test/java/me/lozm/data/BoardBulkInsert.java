@@ -7,8 +7,9 @@ import me.lozm.entity.user.User;
 import me.lozm.object.code.BoardType;
 import me.lozm.object.code.ContentType;
 import me.lozm.object.code.UsersType;
-import me.lozm.object.dto.board.PostBoardDto;
-import me.lozm.object.dto.user.GetUserDto;
+import me.lozm.object.dto.board.BoardPostDto;
+import me.lozm.object.dto.board.BoardPutDto;
+import me.lozm.object.dto.user.UserGetDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 @SpringBootTest
 public class BoardBulkInsert {
+
+    private static Faker faker = new Faker();
+
 
     @Autowired
     private MockMvc mockMvc;
@@ -51,7 +55,7 @@ public class BoardBulkInsert {
 
         try {
             for (int i = 0; i <2000 ; i++) {
-                GetUserDto getUser = GetUserDto.of(userList.get(ThreadLocalRandom.current().nextInt(0, userList.size())));
+                UserGetDto getUser = UserGetDto.of(userList.get(ThreadLocalRandom.current().nextInt(0, userList.size())));
                 postBoard(getUser);
             }
         } catch (Exception e) {
@@ -59,8 +63,8 @@ public class BoardBulkInsert {
         }
     }
 
-    private void postBoard(GetUserDto user) throws Exception {
-        PostBoardDto.Request reqDto = makeTestPostBoardDto(user.getId());
+    private void postBoard(UserGetDto user) throws Exception {
+        BoardPostDto.Request reqDto = makeTestBoardPostDto(user.getId());
 
         ResultActions result = mockMvc.perform(
                 post("/api/board")
@@ -69,36 +73,40 @@ public class BoardBulkInsert {
         );
     }
 
-    public static PostBoardDto.Request makeTestPostBoardDto(Long userId) {
+    public static BoardPostDto.Request makeTestBoardPostDto(Long userId) {
         Faker faker = new Faker();
-        String[] boardTypeArr = {
-                BoardType.NEWS.name(), BoardType.MAGAZINE.name(),
-                BoardType.DIARY.name(), BoardType.FREE_CONTENTS.name(),
-                BoardType.SPORTS.name()
-        };
-        String boardType = boardTypeArr[ThreadLocalRandom.current().nextInt(0, 4)];
+        BoardPostDto.Request reqDto = BoardPostDto.Request.builder()
+                .boardType(getRandomBoardType())
+                .contentType(getRandomContentType())
+                .title(faker.book().title())
+                .content(faker.lorem().sentences(ThreadLocalRandom.current().nextInt(0, 10)).toString())
+                .build();
 
-        String[] contentTypeArr = {ContentType.GENERAL.name(), ContentType.NOTICE.name(), ContentType.EVENT.name()};
-        String contentType = contentTypeArr[ThreadLocalRandom.current().nextInt(0, 2)];
-
-        PostBoardDto.Request reqDto = setRequestTestData(
-                boardType,
-                contentType,
-                faker.book().title(),
-                faker.lorem().sentences(ThreadLocalRandom.current().nextInt(0, 10)).toString(),
-                userId
-        );
         return reqDto;
     }
 
-    private static PostBoardDto.Request setRequestTestData(String boardType, String contentType, String title, String content, Long userId) {
-        PostBoardDto.Request reqDto = new PostBoardDto.Request();
-        reqDto.setBoardType(boardType);
-        reqDto.setContentType(contentType);
-        reqDto.setTitle(title);
-        reqDto.setContent(content);
-        reqDto.setCreatedBy(userId);
+    public static BoardPutDto.Request makeTestBoardPutDto(Long boardId) {
+        BoardPutDto.Request reqDto = BoardPutDto.Request.builder()
+                .id(boardId)
+                .boardType(getRandomBoardType())
+                .contentType(getRandomContentType())
+                .title(faker.book().title())
+                .content(faker.lorem().sentences(ThreadLocalRandom.current().nextInt(0, 10)).toString())
+                .build();
+
         return reqDto;
+    }
+
+    private static String getRandomBoardType() {
+        BoardType[] boardTypeArr = BoardType.values();
+        String boardType = boardTypeArr[ThreadLocalRandom.current().nextInt(1, boardTypeArr.length - 1)].toString();
+        return boardType;
+    }
+
+    private static String getRandomContentType() {
+        ContentType[] contentTypeArr = ContentType.values();
+        String contentType = contentTypeArr[ThreadLocalRandom.current().nextInt(0, contentTypeArr.length - 1)].toString();
+        return contentType;
     }
 
 }

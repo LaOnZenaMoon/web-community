@@ -1,11 +1,10 @@
 package me.lozm.docs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.javafaker.Faker;
 import me.lozm.entity.board.Board;
 import me.lozm.object.code.BoardType;
-import me.lozm.object.code.ContentType;
-import me.lozm.object.dto.board.PostBoardDto;
+import me.lozm.object.dto.board.BoardPostDto;
+import me.lozm.object.dto.board.BoardPutDto;
 import me.lozm.repository.board.BoardRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,17 +21,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
-import static me.lozm.data.BoardBulkInsert.makeTestPostBoardDto;
+import static me.lozm.data.BoardBulkInsert.makeTestBoardPostDto;
+import static me.lozm.data.BoardBulkInsert.makeTestBoardPutDto;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentRequest;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentResponse;
 import static me.lozm.docs.DocumentFormatGenerator.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
@@ -208,7 +206,7 @@ public class BoardDocumentationTests {
     @Rollback
     public void postBoard() throws Exception {
         //Given
-        PostBoardDto.Request reqDto = makeTestPostBoardDto(1L);
+        BoardPostDto.Request reqDto = makeTestBoardPostDto(1L);
 
         //When
         ResultActions result = mockMvc.perform(
@@ -227,7 +225,7 @@ public class BoardDocumentationTests {
                                 fieldWithPath("contentType").type(JsonFieldType.STRING).description("Content type").attributes(getContentType()),
                                 fieldWithPath("title").type(JsonFieldType.STRING).description("Board title"),
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("Board content"),
-                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created"),
+                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").optional(),
                                 fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").ignored()
                         ),
                         responseFields(
@@ -239,39 +237,44 @@ public class BoardDocumentationTests {
                 ));
     }
 
-//    @Test
-//    @Rollback
-//    public void putSample() {
-//        try {
-//            //Given
-//
-//            //When
-//            ResultActions result = mockMvc.perform(
-//                    put("/put/url")
-//                            .contentType(MediaType.APPLICATION_JSON)
-//                            .content(objectMapper.writeValueAsString(new Object())) //Post DTO
-//            );
-//
-//            //Then
-//            result.andExpect(status().is(200))
-//                    .andDo(document("put-sample",
-//                            getDocumentRequest(),
-//                            getDocumentResponse(),
-//                            requestFields(
-//                                    fieldWithPath("sample").type(JsonFieldType.STRING).description("sample").attributes(getDateFormat())
-//                            ),
-//                            responseFields(
-//                                    fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("API 호출 성공여부"),
-//                                    fieldWithPath("code").type(JsonFieldType.STRING).description("API 호출 코드"),
-//                                    fieldWithPath("message").type(JsonFieldType.STRING).description("API 호출 메시지"),
-//                                    fieldWithPath("data").type(JsonFieldType.OBJECT).description("API 호출 데이터")
-//                            )
-//                    ));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
+    @Test
+    @Rollback
+    public void putBoard() throws Exception {
+        //Given
+        List<Board> boardList = boardRepository.findAll();
+
+        BoardPutDto.Request putBoardDto = makeTestBoardPutDto(boardList.get(0).getId());
+
+        //When
+        ResultActions result = mockMvc.perform(
+                put("/api/board")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(putBoardDto))
+        );
+
+        //Then
+        result.andExpect(status().is(200))
+                .andDo(document("put-board",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("Board ID"),
+                                fieldWithPath("boardType").type(JsonFieldType.STRING).description("Board type").attributes(getBoardType()),
+                                fieldWithPath("contentType").type(JsonFieldType.STRING).description("Content type").attributes(getContentType()),
+                                fieldWithPath("title").type(JsonFieldType.STRING).description("Board title"),
+                                fieldWithPath("content").type(JsonFieldType.STRING).description("Board content"),
+                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").ignored(),
+                                fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").optional()
+                        ),
+                        responseFields(
+                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message").optional(),
+                                fieldWithPath("data").type(JsonFieldType.STRING).description("Invoking API data").optional()
+                        )
+                ));
+    }
+
 //    @Test
 //    @Rollback
 //    public void deleteSample() {

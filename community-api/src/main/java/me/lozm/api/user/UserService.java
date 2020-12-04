@@ -3,7 +3,6 @@ package me.lozm.api.user;
 import lombok.RequiredArgsConstructor;
 import me.lozm.entity.user.User;
 import me.lozm.global.exception.ServiceException;
-import me.lozm.object.dto.user.GetUserDto;
 import me.lozm.object.vo.user.UserVo;
 import me.lozm.repository.user.UserRepository;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)

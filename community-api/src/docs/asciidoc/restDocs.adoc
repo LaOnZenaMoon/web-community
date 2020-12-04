@@ -12,6 +12,8 @@ endif::[]
 :operation-http-response-title: Example response
 
 == Board
+
+
 === Get the board list
 Using `GET` method, search the board list.
 
@@ -22,6 +24,7 @@ include::{snippets}/get-board-list/http-request.adoc[]
 ==== Response
 include::{snippets}/get-board-list/response-fields.adoc[]
 include::{snippets}/get-board-list/http-response.adoc[]
+
 
 === Get the board detail
 Using `GET` method, search the board detail.
@@ -34,6 +37,7 @@ include::{snippets}/get-board-detail/http-request.adoc[]
 include::{snippets}/get-board-detail/response-fields.adoc[]
 include::{snippets}/get-board-detail/http-response.adoc[]
 
+
 === Get the comment list
 Using `GET` method, search the comment list belonging to each board.
 
@@ -45,6 +49,7 @@ include::{snippets}/get-comment-list/http-request.adoc[]
 include::{snippets}/get-comment-list/response-fields.adoc[]
 include::{snippets}/get-comment-list/http-response.adoc[]
 
+
 === Post a board
 Using `POST` method, create a board.
 
@@ -55,3 +60,15 @@ include::{snippets}/post-board/http-request.adoc[]
 ==== Response
 include::{snippets}/post-board/response-fields.adoc[]
 include::{snippets}/post-board/http-response.adoc[]
+
+
+=== Put a board
+Using `PUT` method, modify a board.
+
+==== Request
+include::{snippets}/put-board/request-fields.adoc[]
+include::{snippets}/put-board/http-request.adoc[]
+
+==== Response
+include::{snippets}/put-board/response-fields.adoc[]
+include::{snippets}/put-board/http-response.adoc[]

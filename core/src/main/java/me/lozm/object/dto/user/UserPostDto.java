@@ -6,7 +6,7 @@ import me.lozm.object.dto.BaseUserDto;
 
 import javax.validation.constraints.NotEmpty;
 
-public class PostUserDto {
+public class UserPostDto {
 
     @Getter
     public static class Request extends BaseUserDto {
@@ -24,7 +24,7 @@ public class PostUserDto {
         private String type;
 
         public static Request setRequestTestData(String name, String identifier) {
-            PostUserDto.Request reqDto = new PostUserDto.Request();
+            UserPostDto.Request reqDto = new UserPostDto.Request();
             reqDto.name = name;
             reqDto.identifier = identifier;
             reqDto.password = "asdf1234";

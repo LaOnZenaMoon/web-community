@@ -1,7 +1,7 @@
 package me.lozm.global.jwt;
 
 import lombok.RequiredArgsConstructor;
-import me.lozm.object.dto.auth.PostAuthDto;
+import me.lozm.object.dto.auth.AuthPostDto;
 import me.lozm.object.vo.auth.AuthVo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,8 +18,8 @@ public class JwtAuthenticationController {
 
 
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody PostAuthDto.Request reqDto) {
-        PostAuthDto.Response resDto = new PostAuthDto.Response();
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthPostDto.Request reqDto) {
+        AuthPostDto.Response resDto = new AuthPostDto.Response();
 
         try {
             AuthVo loginReqVo = AuthVo.builder()

@@ -6,7 +6,7 @@ import me.lozm.object.dto.BaseUserDto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class PostCommentDto {
+public class CommentPostDto {
 
     @Getter
     public static class Request extends BaseUserDto {
@@ -19,8 +19,8 @@ public class PostCommentDto {
         @NotEmpty
         private String content;
 
-        public static PostCommentDto.Request setRequestTestData(Long boardId, String commentType, String content, Long userId) {
-            PostCommentDto.Request reqDto = new PostCommentDto.Request();
+        public static CommentPostDto.Request setRequestTestData(Long boardId, String commentType, String content, Long userId) {
+            CommentPostDto.Request reqDto = new CommentPostDto.Request();
             reqDto.boardId = boardId;
             reqDto.commentType = commentType;
             reqDto.content = content;

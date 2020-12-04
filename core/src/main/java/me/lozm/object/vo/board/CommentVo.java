@@ -2,10 +2,9 @@ package me.lozm.object.vo.board;
 
 import lombok.Builder;
 import lombok.Getter;
-import me.lozm.object.dto.board.DeleteCommentDto;
-import me.lozm.object.dto.board.PostBoardDto;
-import me.lozm.object.dto.board.PostCommentDto;
-import me.lozm.object.dto.board.PutCommentDto;
+import me.lozm.object.dto.board.CommentDeleteDto;
+import me.lozm.object.dto.board.CommentPostDto;
+import me.lozm.object.dto.board.CommentPutDto;
 import me.lozm.object.vo.BaseVo;
 
 import java.time.LocalDateTime;
@@ -29,7 +28,7 @@ public class CommentVo extends BaseVo {
         this.boardId = boardId;
     }
 
-    public static CommentVo of(PostCommentDto.Request reqDto) {
+    public static CommentVo of(CommentPostDto.Request reqDto) {
         return CommentVo.builder()
                 .boardId(reqDto.getBoardId())
                 .commentType(reqDto.getCommentType())
@@ -38,7 +37,7 @@ public class CommentVo extends BaseVo {
                 .build();
     }
 
-    public static CommentVo of(PutCommentDto.Request reqDto) {
+    public static CommentVo of(CommentPutDto.Request reqDto) {
         return CommentVo.builder()
                 .id(reqDto.getId())
                 .commentType(reqDto.getCommentType())
@@ -47,7 +46,7 @@ public class CommentVo extends BaseVo {
                 .build();
     }
 
-    public static CommentVo of(DeleteCommentDto.Request reqDto, DeleteCommentDto targetDto) {
+    public static CommentVo of(CommentDeleteDto.Request reqDto, CommentDeleteDto targetDto) {
         return CommentVo.builder()
                 .id(targetDto.getId())
                 .modifiedBy(reqDto.getModifiedBy())
