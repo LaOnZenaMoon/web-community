@@ -1,8 +1,11 @@
 package me.lozm.docs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
 import me.lozm.entity.board.Board;
 import me.lozm.object.code.BoardType;
+import me.lozm.object.code.ContentType;
+import me.lozm.object.dto.board.PostBoardDto;
 import me.lozm.repository.board.BoardRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,15 +24,16 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
+import static me.lozm.data.BoardBulkInsert.makeTestPostBoardDto;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentRequest;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentResponse;
-import static me.lozm.docs.DocumentFormatGenerator.getBoardType;
-import static me.lozm.docs.DocumentFormatGenerator.getYnFormat;
+import static me.lozm.docs.DocumentFormatGenerator.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -80,7 +85,7 @@ public class BoardDocumentationTests {
                                 fieldWithPath("data.list.content[].contentType").type(JsonFieldType.STRING).description("Board content type"),
                                 fieldWithPath("data.list.content[].title").type(JsonFieldType.STRING).description("Board title"),
                                 fieldWithPath("data.list.content[].content").type(JsonFieldType.STRING).description("Board content"),
-                                fieldWithPath("data.list.content[].flag").type(JsonFieldType.NUMBER).description("Board flag"),
+                                fieldWithPath("data.list.content[].flag").type(JsonFieldType.NUMBER).description("Board flag").attributes(getFlagFormat()),
                                 fieldWithPath("data.list.pageable").type(JsonFieldType.OBJECT).description(""),
                                 fieldWithPath("data.list.pageable.sort").type(JsonFieldType.OBJECT).description(""),
                                 fieldWithPath("data.list.pageable.sort.sorted").type(JsonFieldType.BOOLEAN).description(""),
@@ -137,7 +142,7 @@ public class BoardDocumentationTests {
                                 fieldWithPath("data.contentType").type(JsonFieldType.STRING).description("Board content type"),
                                 fieldWithPath("data.title").type(JsonFieldType.STRING).description("Board title"),
                                 fieldWithPath("data.content").type(JsonFieldType.STRING).description("Board content"),
-                                fieldWithPath("data.flag").type(JsonFieldType.NUMBER).description("Board flag")
+                                fieldWithPath("data.flag").type(JsonFieldType.NUMBER).description("Board flag").attributes(getFlagFormat())
                         )
                 ));
     }
@@ -172,7 +177,7 @@ public class BoardDocumentationTests {
                                 fieldWithPath("data.list.content[].id").type(JsonFieldType.NUMBER).description("Comment ID"),
                                 fieldWithPath("data.list.content[].commentType").type(JsonFieldType.STRING).description("Comment type"),
                                 fieldWithPath("data.list.content[].content").type(JsonFieldType.STRING).description("Comment content"),
-                                fieldWithPath("data.list.content[].flag").type(JsonFieldType.NUMBER).description("Comment flag"),
+                                fieldWithPath("data.list.content[].flag").type(JsonFieldType.NUMBER).description("Comment flag").attributes(getFlagFormat()),
                                 fieldWithPath("data.list.pageable").type(JsonFieldType.OBJECT).description(""),
                                 fieldWithPath("data.list.pageable.sort").type(JsonFieldType.OBJECT).description(""),
                                 fieldWithPath("data.list.pageable.sort.sorted").type(JsonFieldType.BOOLEAN).description(""),
@@ -199,39 +204,41 @@ public class BoardDocumentationTests {
                 ));
     }
 
-//    @Test
-//    @Rollback
-//    public void postSample() {
-//        try {
-//            //Given
-//
-//            //When
-//            ResultActions result = mockMvc.perform(
-//                    post("/post/url")
-//                            .contentType(MediaType.APPLICATION_JSON)
-//                            .content(objectMapper.writeValueAsString(new Object())) //Post DTO
-//            );
-//
-//            //Then
-//            result.andExpect(status().is(200))
-//                    .andDo(document("post-sample",
-//                            getDocumentRequest(),
-//                            getDocumentResponse(),
-//                            requestFields(
-//                                    fieldWithPath("sample").type(JsonFieldType.STRING).description("sample").attributes(getDateFormat())
-//                            ),
-//                            responseFields(
-//                                    fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("API 호출 성공여부"),
-//                                    fieldWithPath("code").type(JsonFieldType.STRING).description("API 호출 코드"),
-//                                    fieldWithPath("message").type(JsonFieldType.STRING).description("API 호출 메시지"),
-//                                    fieldWithPath("data").type(JsonFieldType.OBJECT).description("API 호출 데이터")
-//                            )
-//                    ));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
+    @Test
+    @Rollback
+    public void postBoard() throws Exception {
+        //Given
+        PostBoardDto.Request reqDto = makeTestPostBoardDto(1L);
+
+        //When
+        ResultActions result = mockMvc.perform(
+                post("/api/board")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(reqDto))
+        );
+
+        //Then
+        result.andExpect(status().is(200))
+                .andDo(document("post-board",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("boardType").type(JsonFieldType.STRING).description("Board type").attributes(getBoardType()),
+                                fieldWithPath("contentType").type(JsonFieldType.STRING).description("Content type").attributes(getContentType()),
+                                fieldWithPath("title").type(JsonFieldType.STRING).description("Board title"),
+                                fieldWithPath("content").type(JsonFieldType.STRING).description("Board content"),
+                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created"),
+                                fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").ignored()
+                        ),
+                        responseFields(
+                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message").optional(),
+                                fieldWithPath("data").type(JsonFieldType.STRING).description("Invoking API data").optional()
+                        )
+                ));
+    }
+
 //    @Test
 //    @Rollback
 //    public void putSample() {

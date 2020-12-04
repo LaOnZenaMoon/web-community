@@ -44,3 +44,14 @@ include::{snippets}/get-comment-list/http-request.adoc[]
 ==== Response
 include::{snippets}/get-comment-list/response-fields.adoc[]
 include::{snippets}/get-comment-list/http-response.adoc[]
+
+=== Post a board
+Using `POST` method, create a board.
+
+==== Request
+include::{snippets}/post-board/request-fields.adoc[]
+include::{snippets}/post-board/http-request.adoc[]
+
+==== Response
+include::{snippets}/post-board/response-fields.adoc[]
+include::{snippets}/post-board/http-response.adoc[]

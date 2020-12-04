@@ -1,6 +1,7 @@
 package me.lozm.docs;
 
 import me.lozm.object.code.BoardType;
+import me.lozm.object.code.ContentType;
 import org.springframework.restdocs.snippet.Attributes;
 
 import java.util.Arrays;
@@ -18,6 +19,14 @@ public interface DocumentFormatGenerator {
         return key("format").value(boardTypeArrToString);
     }
 
+    static Attributes.Attribute getContentType() {
+        String contentTypeArrToString = Arrays.stream(ContentType.values())
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
+
+        return key("format").value(contentTypeArrToString);
+    }
+
     static Attributes.Attribute getDateFormat() {
         return key("format").value("yyyy-MM-dd");
     }
@@ -28,6 +37,10 @@ public interface DocumentFormatGenerator {
 
     static Attributes.Attribute getYnFormat() {
         return key("format").value("사용: Y, 미사용: N");
+    }
+
+    static Attributes.Attribute getFlagFormat() {
+        return key("format").value("사용: 1, 미사용: 0");
     }
 
     static Attributes.Attribute getDuplicationCheckFormat() {
