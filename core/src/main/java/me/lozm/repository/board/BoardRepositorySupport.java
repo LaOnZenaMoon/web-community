@@ -77,7 +77,7 @@ public class BoardRepositorySupport {
             return null;
         }
 
-        return board.boardType.eq(boardType);
+        return board.boardType.eq(String.valueOf(boardType));
     }
 
 }

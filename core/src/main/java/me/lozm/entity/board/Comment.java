@@ -23,8 +23,9 @@ public class Comment extends BaseEntity {
     private Long id;
 
     @Column(name = "COMMENT_TYPE")
-    private CommentType commentType;
+    private String commentType;
 
+    @Lob
     @Column(name = "CONTENT")
     private String content;
 
@@ -34,14 +35,14 @@ public class Comment extends BaseEntity {
 
 
     public void insertComment(CommentVo commentVo, Board board) {
-        this.commentType = commentVo.getCommentType();
+        this.commentType = String.valueOf(commentVo.getCommentType());
         this.content = commentVo.getContent();
         this.board = board;
         this.setBaseEntity(commentVo.getCreatedBy(), null, 1);
     }
 
     public void updateComment(CommentVo commentVo) {
-        this.commentType = commentVo.getCommentType();
+        this.commentType = String.valueOf(commentVo.getCommentType());
         this.content = commentVo.getContent();
         this.setBaseEntity(null, commentVo.getModifiedBy(), 1);
     }

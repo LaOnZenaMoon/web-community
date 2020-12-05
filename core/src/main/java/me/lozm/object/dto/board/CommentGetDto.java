@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 public class CommentGetDto {
 
     private Long id;
-    private CommentType commentType;
+    private String commentType;
     private int flag;
     private String content;
 

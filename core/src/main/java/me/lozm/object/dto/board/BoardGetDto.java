@@ -11,8 +11,8 @@ import org.springframework.data.domain.Page;
 public class BoardGetDto {
 
     private Long id;
-    private BoardType boardType;
-    private ContentType contentType;
+    private String boardType;
+    private String contentType;
     private String title;
     private String content;
     private int flag;

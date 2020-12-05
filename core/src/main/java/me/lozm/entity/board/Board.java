@@ -22,10 +22,10 @@ public class Board extends BaseEntity {
     private Long id;
 
     @Column(name = "BOARD_TYPE")
-    private BoardType boardType;
+    private String boardType;
 
     @Column(name = "CONTENT_TYPE")
-    private ContentType contentType;
+    private String contentType;
 
     @Column(name = "TITLE")
     private String title;
@@ -39,16 +39,16 @@ public class Board extends BaseEntity {
 
 
     public void insertBoard(BoardVo boardVo) {
-        this.boardType = boardVo.getBoardType();
-        this.contentType = boardVo.getContentType();
+        this.boardType = String.valueOf(boardVo.getBoardType());
+        this.contentType = String.valueOf(boardVo.getContentType());
         this.title = boardVo.getTitle();
         this.content = boardVo.getContent();
         this.setBaseEntity(boardVo.getCreatedBy(), null, 1);
     }
 
     public void updateBoard(BoardVo boardVo) {
-        this.boardType = boardVo.getBoardType();
-        this.contentType = boardVo.getContentType();
+        this.boardType = String.valueOf(boardVo.getBoardType());
+        this.contentType = String.valueOf(boardVo.getContentType());
         this.title = boardVo.getTitle();
         this.content = boardVo.getContent();
         this.setBaseEntity(null, boardVo.getModifiedBy(), 1);
