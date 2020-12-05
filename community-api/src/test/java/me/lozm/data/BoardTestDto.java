@@ -2,6 +2,7 @@ package me.lozm.data;
 
 import com.github.javafaker.Faker;
 import me.lozm.object.code.BoardType;
+import me.lozm.object.code.CommentType;
 import me.lozm.object.code.ContentType;
 import me.lozm.object.dto.board.BoardPostDto;
 import me.lozm.object.dto.board.BoardPutDto;
@@ -36,7 +37,7 @@ public class BoardTestDto {
     public static CommentPostDto.Request makeTestCommentPostDto(Long boardId) {
         return CommentPostDto.Request.builder()
                 .boardId(boardId)
-                .commentType(getRandomContentType())
+                .commentType(getRandomCommentType())
                 .content(getRandomContent())
                 .build();
     }
@@ -46,16 +47,19 @@ public class BoardTestDto {
     }
 
 
-    public static String getRandomBoardType() {
+    public static BoardType getRandomBoardType() {
         BoardType[] boardTypeArr = BoardType.values();
-        String boardType = boardTypeArr[ThreadLocalRandom.current().nextInt(1, boardTypeArr.length - 1)].toString();
-        return boardType;
+        return boardTypeArr[ThreadLocalRandom.current().nextInt(1, boardTypeArr.length - 1)];
     }
 
-    private static String getRandomContentType() {
+    private static ContentType getRandomContentType() {
         ContentType[] contentTypeArr = ContentType.values();
-        String contentType = contentTypeArr[ThreadLocalRandom.current().nextInt(0, contentTypeArr.length - 1)].toString();
-        return contentType;
+        return contentTypeArr[ThreadLocalRandom.current().nextInt(0, contentTypeArr.length - 1)];
+    }
+
+    private static CommentType getRandomCommentType() {
+        CommentType[] commentTypeArr = CommentType.values();
+        return commentTypeArr[ThreadLocalRandom.current().nextInt(0, commentTypeArr.length - 1)];
     }
 
 }

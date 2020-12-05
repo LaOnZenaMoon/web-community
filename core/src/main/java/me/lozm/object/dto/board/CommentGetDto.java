@@ -2,6 +2,7 @@ package me.lozm.object.dto.board;
 
 import lombok.*;
 import me.lozm.entity.board.Comment;
+import me.lozm.object.code.CommentType;
 import org.springframework.data.domain.Page;
 
 @Getter @Builder
@@ -9,7 +10,7 @@ import org.springframework.data.domain.Page;
 public class CommentGetDto {
 
     private Long id;
-    private String commentType;
+    private CommentType commentType;
     private int flag;
     private String content;
 

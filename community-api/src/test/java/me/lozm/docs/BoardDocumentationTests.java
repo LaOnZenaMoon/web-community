@@ -174,7 +174,7 @@ public class BoardDocumentationTests {
                                 fieldWithPath("data.list").type(JsonFieldType.OBJECT).description("Comment list"),
                                 fieldWithPath("data.list.content").type(JsonFieldType.ARRAY).description("Comment content").optional(),
                                 fieldWithPath("data.list.content[].id").type(JsonFieldType.NUMBER).description("Comment ID").optional(),
-                                fieldWithPath("data.list.content[].commentType").type(JsonFieldType.STRING).description("Commenrt type").optional(),
+                                fieldWithPath("data.list.content[].commentType").type(JsonFieldType.STRING).description("Comment type").attributes(getCommentType()).optional(),
                                 fieldWithPath("data.list.content[].content").type(JsonFieldType.STRING).description("Comment content").optional(),
                                 fieldWithPath("data.list.content[].flag").type(JsonFieldType.NUMBER).description("Comment flag").attributes(getFlagFormat()).optional(),
                                 fieldWithPath("data.list.pageable").type(JsonFieldType.OBJECT).description(""),

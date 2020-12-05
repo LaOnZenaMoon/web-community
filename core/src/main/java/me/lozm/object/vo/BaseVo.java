@@ -12,6 +12,6 @@ public class BaseVo {
     private LocalDateTime modifiedDt;
     private Long createdBy;
     private Long modifiedBy;
-    private int flag = 1;
+    private int flag;
 
 }

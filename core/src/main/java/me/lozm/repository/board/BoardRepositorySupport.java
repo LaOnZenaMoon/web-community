@@ -1,10 +1,12 @@
 package me.lozm.repository.board;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import me.lozm.entity.board.Board;
 import me.lozm.entity.board.Comment;
 import me.lozm.object.code.BoardType;
+import me.lozm.object.code.UsersType;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 import static me.lozm.entity.board.QBoard.board;
 import static me.lozm.entity.board.QComment.comment;
+import static me.lozm.entity.user.QUser.user;
 
 
 @Repository
@@ -27,7 +30,7 @@ public class BoardRepositorySupport {
                 .from(board)
                         .join(board.comments, comment).fetchJoin()
                 .where(
-                        board.boardType.eq(String.valueOf(boardType))
+                        checkBoardType(boardType)
                 )
                 .orderBy(board.createdDt.desc())
                 .offset(pageable.getOffset())
@@ -40,7 +43,7 @@ public class BoardRepositorySupport {
                 .select(board)
                 .from(board)
                 .where(
-                        board.boardType.eq(String.valueOf(boardType))
+                        checkBoardType(boardType)
                 )
                 .fetchCount();
     }
@@ -66,6 +69,15 @@ public class BoardRepositorySupport {
                         comment.board.id.eq(boardId)
                 )
                 .fetchCount();
+    }
+
+
+    private BooleanExpression checkBoardType(BoardType boardType) {
+        if (boardType.equals(BoardType.ALL)) {
+            return null;
+        }
+
+        return board.boardType.eq(boardType);
     }
 
 }
