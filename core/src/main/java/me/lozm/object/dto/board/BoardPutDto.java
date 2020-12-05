@@ -2,6 +2,8 @@ package me.lozm.object.dto.board;
 
 import lombok.Builder;
 import lombok.Getter;
+import me.lozm.object.code.BoardType;
+import me.lozm.object.code.ContentType;
 import me.lozm.object.dto.BaseUserDto;
 
 import javax.validation.constraints.NotEmpty;
@@ -15,10 +17,10 @@ public class BoardPutDto {
         private Long id;
 
         @NotEmpty
-        private String boardType;
+        private BoardType boardType;
 
         @NotEmpty
-        private String contentType;
+        private ContentType contentType;
 
         private String title;
 

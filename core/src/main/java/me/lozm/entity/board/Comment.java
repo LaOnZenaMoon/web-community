@@ -1,7 +1,11 @@
 package me.lozm.entity.board;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import me.lozm.entity.BaseEntity;
+import me.lozm.object.code.CommentType;
 import me.lozm.object.vo.board.CommentVo;
 
 import javax.persistence.*;
@@ -19,7 +23,7 @@ public class Comment extends BaseEntity {
     private Long id;
 
     @Column(name = "COMMENT_TYPE")
-    private String commentType;
+    private CommentType commentType;
 
     @Column(name = "CONTENT")
     private String content;

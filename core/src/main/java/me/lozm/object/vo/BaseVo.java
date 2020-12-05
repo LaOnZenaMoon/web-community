@@ -1,12 +1,11 @@
 package me.lozm.object.vo;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
-@Getter
-@AllArgsConstructor
+@Getter @SuperBuilder
 public class BaseVo {
 
     private LocalDateTime createdDt;

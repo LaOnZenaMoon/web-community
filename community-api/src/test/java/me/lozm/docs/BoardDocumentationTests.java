@@ -6,6 +6,7 @@ import me.lozm.object.code.BoardType;
 import me.lozm.object.dto.board.BoardDeleteDto;
 import me.lozm.object.dto.board.BoardPostDto;
 import me.lozm.object.dto.board.BoardPutDto;
+import me.lozm.object.dto.board.CommentPostDto;
 import me.lozm.repository.board.BoardRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,11 +24,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-import static me.lozm.data.BoardTestDto.makeTestBoardPostDto;
-import static me.lozm.data.BoardTestDto.makeTestBoardPutDto;
+import static me.lozm.data.BoardTestDto.*;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentRequest;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentResponse;
 import static me.lozm.docs.DocumentFormatGenerator.*;
@@ -80,12 +79,12 @@ public class BoardDocumentationTests {
                                 fieldWithPath("data").type(JsonFieldType.OBJECT).description("Invoking API data"),
                                 fieldWithPath("data.list").type(JsonFieldType.OBJECT).description("Board list"),
                                 fieldWithPath("data.list.content").type(JsonFieldType.ARRAY).description("Board content"),
-                                fieldWithPath("data.list.content[].id").type(JsonFieldType.NUMBER).description("Board ID"),
-                                fieldWithPath("data.list.content[].boardType").type(JsonFieldType.STRING).description("Board type"),
-                                fieldWithPath("data.list.content[].contentType").type(JsonFieldType.STRING).description("Board content type"),
-                                fieldWithPath("data.list.content[].title").type(JsonFieldType.STRING).description("Board title"),
-                                fieldWithPath("data.list.content[].content").type(JsonFieldType.STRING).description("Board content"),
-                                fieldWithPath("data.list.content[].flag").type(JsonFieldType.NUMBER).description("Board flag").attributes(getFlagFormat()),
+                                fieldWithPath("data.list.content[].id").type(JsonFieldType.NUMBER).description("Board ID").optional(),
+                                fieldWithPath("data.list.content[].boardType").type(JsonFieldType.STRING).description("Board type").optional(),
+                                fieldWithPath("data.list.content[].contentType").type(JsonFieldType.STRING).description("Board content type").optional(),
+                                fieldWithPath("data.list.content[].title").type(JsonFieldType.STRING).description("Board title").optional(),
+                                fieldWithPath("data.list.content[].content").type(JsonFieldType.STRING).description("Board content").optional(),
+                                fieldWithPath("data.list.content[].flag").type(JsonFieldType.NUMBER).description("Board flag").attributes(getFlagFormat()).optional(),
                                 fieldWithPath("data.list.pageable").type(JsonFieldType.OBJECT).description(""),
                                 fieldWithPath("data.list.pageable.sort").type(JsonFieldType.OBJECT).description(""),
                                 fieldWithPath("data.list.pageable.sort.sorted").type(JsonFieldType.BOOLEAN).description(""),
@@ -173,11 +172,11 @@ public class BoardDocumentationTests {
                                 fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message"),
                                 fieldWithPath("data").type(JsonFieldType.OBJECT).description("Invoking API data"),
                                 fieldWithPath("data.list").type(JsonFieldType.OBJECT).description("Comment list"),
-                                fieldWithPath("data.list.content").type(JsonFieldType.ARRAY).description("Comment content"),
-                                fieldWithPath("data.list.content[].id").type(JsonFieldType.NUMBER).description("Comment ID"),
-                                fieldWithPath("data.list.content[].commentType").type(JsonFieldType.STRING).description("Comment type"),
-                                fieldWithPath("data.list.content[].content").type(JsonFieldType.STRING).description("Comment content"),
-                                fieldWithPath("data.list.content[].flag").type(JsonFieldType.NUMBER).description("Comment flag").attributes(getFlagFormat()),
+                                fieldWithPath("data.list.content").type(JsonFieldType.ARRAY).description("Comment content").optional(),
+                                fieldWithPath("data.list.content[].id").type(JsonFieldType.NUMBER).description("Comment ID").optional(),
+                                fieldWithPath("data.list.content[].commentType").type(JsonFieldType.STRING).description("Commenrt type").optional(),
+                                fieldWithPath("data.list.content[].content").type(JsonFieldType.STRING).description("Comment content").optional(),
+                                fieldWithPath("data.list.content[].flag").type(JsonFieldType.NUMBER).description("Comment flag").attributes(getFlagFormat()).optional(),
                                 fieldWithPath("data.list.pageable").type(JsonFieldType.OBJECT).description(""),
                                 fieldWithPath("data.list.pageable.sort").type(JsonFieldType.OBJECT).description(""),
                                 fieldWithPath("data.list.pageable.sort.sorted").type(JsonFieldType.BOOLEAN).description(""),
@@ -208,7 +207,7 @@ public class BoardDocumentationTests {
     @Rollback
     public void postBoard() throws Exception {
         //Given
-        BoardPostDto.Request reqDto = makeTestBoardPostDto(1L);
+        BoardPostDto.Request reqDto = makeTestBoardPostDto();
 
         //When
         ResultActions result = mockMvc.perform(
@@ -279,7 +278,7 @@ public class BoardDocumentationTests {
 
     @Test
     @Rollback
-    public void deleteSample() throws Exception {
+    public void deleteBoard() throws Exception {
         //Given
         List<Board> boardList = boardRepository.findAll();
         List<BoardDeleteDto> deletedBoardList = boardList.stream()
@@ -312,6 +311,41 @@ public class BoardDocumentationTests {
                                 fieldWithPath("list[].id").type(JsonFieldType.NUMBER).description("Board ID"),
                                 fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").ignored(),
                                 fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").optional()
+                        ),
+                        responseFields(
+                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message").optional(),
+                                fieldWithPath("data").type(JsonFieldType.STRING).description("Invoking API data").optional()
+                        )
+                ));
+    }
+
+    @Test
+    @Rollback
+    public void postComment() throws Exception {
+        //Given
+        List<Board> boardList = boardRepository.findAll();
+        CommentPostDto.Request reqDto = makeTestCommentPostDto(boardList.get(0).getId());
+
+        //When
+        ResultActions result = mockMvc.perform(
+                post("/api/comment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(reqDto))
+        );
+
+        //Then
+        result.andExpect(status().is(200))
+                .andDo(document("post-comment",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("boardId").type(JsonFieldType.STRING).description("Board ID"),
+                                fieldWithPath("commentType").type(JsonFieldType.STRING).description("Comment type"),
+                                fieldWithPath("content").type(JsonFieldType.STRING).description("Comment content"),
+                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").optional(),
+                                fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").ignored()
                         ),
                         responseFields(
                                 fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),

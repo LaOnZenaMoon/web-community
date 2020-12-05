@@ -2,6 +2,8 @@ package me.lozm.entity.board;
 
 import lombok.*;
 import me.lozm.entity.BaseEntity;
+import me.lozm.object.code.BoardType;
+import me.lozm.object.code.ContentType;
 import me.lozm.object.vo.board.BoardVo;
 
 import javax.persistence.*;
@@ -20,10 +22,10 @@ public class Board extends BaseEntity {
     private Long id;
 
     @Column(name = "BOARD_TYPE")
-    private String boardType;
+    private BoardType boardType;
 
     @Column(name = "CONTENT_TYPE")
-    private String contentType;
+    private ContentType contentType;
 
     @Column(name = "TITLE")
     private String title;

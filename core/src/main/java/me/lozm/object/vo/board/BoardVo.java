@@ -1,33 +1,22 @@
 package me.lozm.object.vo.board;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
+import me.lozm.object.code.BoardType;
+import me.lozm.object.code.ContentType;
 import me.lozm.object.dto.board.BoardDeleteDto;
 import me.lozm.object.dto.board.BoardPostDto;
 import me.lozm.object.dto.board.BoardPutDto;
 import me.lozm.object.vo.BaseVo;
 
-import java.time.LocalDateTime;
-
-@Getter
+@Getter @SuperBuilder
 public class BoardVo extends BaseVo {
 
     private Long id;
-    private String boardType;
-    private String contentType;
+    private BoardType boardType;
+    private ContentType contentType;
     private String title;
     private String content;
-
-
-    @Builder
-    public BoardVo(LocalDateTime createdDt, LocalDateTime modifiedDt, Long createdBy, Long modifiedBy, int flag, Long id, String boardType, String contentType, String title, String content) {
-        super(createdDt, modifiedDt, createdBy, modifiedBy, flag);
-        this.id = id;
-        this.boardType = boardType;
-        this.contentType = contentType;
-        this.title = title;
-        this.content = content;
-    }
 
 
     public static BoardVo of(BoardPostDto.Request reqDto) {
@@ -51,10 +40,10 @@ public class BoardVo extends BaseVo {
                 .build();
     }
 
-    public static BoardVo of(BoardDeleteDto.Request reqDto, BoardDeleteDto targetDto) {
+    public static BoardVo of(Long modifiedBy, BoardDeleteDto targetDto) {
         return BoardVo.builder()
                 .id(targetDto.getId())
-                .modifiedBy(reqDto.getModifiedBy())
+                .modifiedBy(modifiedBy)
                 .build();
     }
 

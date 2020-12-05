@@ -1,6 +1,8 @@
 package me.lozm.api.user;
 
 import lombok.RequiredArgsConstructor;
+import me.lozm.object.code.BoardType;
+import me.lozm.object.code.UsersType;
 import me.lozm.object.dto.ApiResponseCode;
 import me.lozm.object.dto.ApiResponseDto;
 import me.lozm.object.dto.user.UserDeleteDto;
@@ -8,6 +10,7 @@ import me.lozm.object.dto.user.UserGetDto;
 import me.lozm.object.dto.user.UserPostDto;
 import me.lozm.object.dto.user.UserPutDto;
 import me.lozm.object.vo.user.UserVo;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,10 +27,10 @@ public class UserAPIController {
     private final PasswordEncoder passwordEncoder;
 
 
-    @GetMapping()
-    public ApiResponseDto getUser() {
+    @GetMapping("/usersType/{usersType}")
+    public ApiResponseDto getUser(@PathVariable(value = "usersType") UsersType usersType, Pageable pageable) {
         UserGetDto.Response resDto = new UserGetDto.Response();
-        resDto.setList(userService.getUserList());
+        resDto.setList(userService.getUserList(usersType, pageable));
 
         return ApiResponseDto.createException(ApiResponseCode.OK, resDto);
     }

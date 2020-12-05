@@ -3,6 +3,7 @@ package me.lozm.object.dto.board;
 import lombok.*;
 import me.lozm.entity.board.Board;
 import me.lozm.object.code.BoardType;
+import me.lozm.object.code.ContentType;
 import org.springframework.data.domain.Page;
 
 @Getter @Builder
@@ -10,8 +11,8 @@ import org.springframework.data.domain.Page;
 public class BoardGetDto {
 
     private Long id;
-    private String boardType;
-    private String contentType;
+    private BoardType boardType;
+    private ContentType contentType;
     private String title;
     private String content;
     private int flag;

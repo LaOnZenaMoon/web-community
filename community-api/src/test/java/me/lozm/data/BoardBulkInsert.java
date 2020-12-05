@@ -6,6 +6,7 @@ import me.lozm.entity.user.User;
 import me.lozm.object.code.UsersType;
 import me.lozm.object.dto.board.BoardPostDto;
 import me.lozm.object.dto.user.UserGetDto;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -32,38 +33,26 @@ public class BoardBulkInsert {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private UserService userService;
 
-
-//    @Test
+    @Test
     public void setBoard() {
-        List<User> userList = userService.getUserList();
-        userList.add(User.builder()
-                .id(2L)
-                .name("JUN LEE")
-                .identifier("junlee")
-                .type(UsersType.USER)
-                .build());
-
-        try {
-            for (int i = 0; i <2000 ; i++) {
-                UserGetDto getUser = UserGetDto.of(userList.get(ThreadLocalRandom.current().nextInt(0, userList.size())));
-                postBoard(getUser);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (int i = 0; i <2000 ; i++) {
+            postBoard();
         }
     }
 
-    private void postBoard(UserGetDto user) throws Exception {
-        BoardPostDto.Request reqDto = makeTestBoardPostDto(user.getId());
+    private void postBoard() {
+        BoardPostDto.Request reqDto = makeTestBoardPostDto();
 
-        ResultActions result = mockMvc.perform(
-                post("/api/board")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(reqDto))
-        );
+        try {
+            ResultActions result = mockMvc.perform(
+                    post("/api/board")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(reqDto))
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

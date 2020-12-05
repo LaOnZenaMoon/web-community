@@ -1,5 +1,6 @@
 package me.lozm.object.dto.user;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import me.lozm.object.dto.BaseUserDto;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 
 public class UserPostDto {
 
-    @Getter
+    @Getter @Builder
     public static class Request extends BaseUserDto {
         @NotEmpty
         private String name;
@@ -22,16 +23,6 @@ public class UserPostDto {
 
         @NotEmpty
         private String type;
-
-        public static Request setRequestTestData(String name, String identifier) {
-            UserPostDto.Request reqDto = new UserPostDto.Request();
-            reqDto.name = name;
-            reqDto.identifier = identifier;
-            reqDto.password = "asdf1234";
-            reqDto.type = "USER";
-
-            return reqDto;
-        }
     }
 
 }

@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.lozm.entity.user.User;
 import me.lozm.object.code.UsersType;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
@@ -35,18 +32,10 @@ public class UserGetDto {
 
     @Getter
     public static class Response {
-        List<UserGetDto> list = new ArrayList<>();
+        Page<UserGetDto> list;
 
-        public void setList(List<User> userList) {
-            this.list = userList.stream()
-                    .map(user -> UserGetDto.builder()
-                            .id(user.getId())
-                            .name(user.getName())
-                            .identifier(user.getIdentifier())
-                            .password(null)
-                            .type(user.getType())
-                            .build())
-                    .collect(Collectors.toList());
+        public void setList(Page<User> userList) {
+            this.list = userList.map((entity) -> UserGetDto.of(entity));
         }
     }
 

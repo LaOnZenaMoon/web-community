@@ -48,7 +48,7 @@ public class BoardAPIController {
     @DeleteMapping
     public ApiResponseDto deleteBoard(@RequestBody @Valid BoardDeleteDto.Request reqDto) {
         for(BoardDeleteDto dto : reqDto.getList()) {
-            boardService.delete(BoardVo.of(reqDto, dto));
+            boardService.delete(BoardVo.of(reqDto.getModifiedBy(), dto));
         }
 
         return ApiResponseDto.createException(ApiResponseCode.OK, null);

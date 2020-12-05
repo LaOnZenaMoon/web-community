@@ -1,32 +1,21 @@
 package me.lozm.object.vo.board;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
+import me.lozm.object.code.CommentType;
 import me.lozm.object.dto.board.CommentDeleteDto;
 import me.lozm.object.dto.board.CommentPostDto;
 import me.lozm.object.dto.board.CommentPutDto;
 import me.lozm.object.vo.BaseVo;
 
-import java.time.LocalDateTime;
-
-@Getter
+@Getter @SuperBuilder
 public class CommentVo extends BaseVo {
 
     private Long id;
-    private String commentType;
+    private CommentType commentType;
     private String content;
-
     private Long boardId;
 
-
-    @Builder
-    public CommentVo(LocalDateTime createdDt, LocalDateTime modifiedDt, Long createdBy, Long modifiedBy, int flag, Long id, String commentType, String content, Long boardId) {
-        super(createdDt, modifiedDt, createdBy, modifiedBy, flag);
-        this.id = id;
-        this.commentType = commentType;
-        this.content = content;
-        this.boardId = boardId;
-    }
 
     public static CommentVo of(CommentPostDto.Request reqDto) {
         return CommentVo.builder()
