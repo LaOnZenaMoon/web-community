@@ -3,6 +3,7 @@ package me.lozm.data;
 import com.github.javafaker.Faker;
 import me.lozm.object.code.UsersType;
 import me.lozm.object.dto.user.UserPostDto;
+import me.lozm.object.dto.user.UserPutDto;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -26,6 +27,16 @@ public class UserTestDto {
                 .name(name)
                 .identifier(identifier)
                 .password(USER_PASSWORD)
+                .type(getRandomUserType())
+                .build();
+    }
+
+    public static UserPutDto.Request makeTestUserPutDto(Long userId, String name, String identifier, String password) {
+        return UserPutDto.Request.builder()
+                .id(userId)
+                .name(name)
+                .identifier(identifier)
+                .password(password)
                 .type(getRandomUserType())
                 .build();
     }

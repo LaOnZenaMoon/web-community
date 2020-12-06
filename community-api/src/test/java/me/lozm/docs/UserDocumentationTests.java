@@ -3,10 +3,12 @@ package me.lozm.docs;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.lozm.entity.board.Board;
 import me.lozm.entity.board.Comment;
+import me.lozm.entity.user.User;
 import me.lozm.object.code.BoardType;
 import me.lozm.object.code.UsersType;
 import me.lozm.object.dto.board.*;
 import me.lozm.object.dto.user.UserPostDto;
+import me.lozm.object.dto.user.UserPutDto;
 import me.lozm.repository.board.BoardRepository;
 import me.lozm.repository.board.CommentRepository;
 import me.lozm.repository.user.UserRepository;
@@ -30,6 +32,7 @@ import java.util.stream.Collectors;
 
 import static me.lozm.data.BoardTestDto.*;
 import static me.lozm.data.UserTestDto.makeTestUserPostDto;
+import static me.lozm.data.UserTestDto.makeTestUserPutDto;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentRequest;
 import static me.lozm.docs.ApiDocumentUtils.getDocumentResponse;
 import static me.lozm.docs.DocumentFormatGenerator.*;
@@ -148,44 +151,44 @@ public class UserDocumentationTests {
                 ));
     }
 
-//    @Test
-//    @Rollback
-//    public void putBoard() throws Exception {
-//        //Given
-//        List<Board> boardList = boardRepository.findAll();
-//
-//        BoardPutDto.Request putBoardDto = makeTestBoardPutDto(boardList.get(0).getId());
-//
-//        //When
-//        ResultActions result = mockMvc.perform(
-//                put("/api/board")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(putBoardDto))
-//        );
-//
-//        //Then
-//        result.andExpect(status().is(200))
-//                .andDo(document("put-board",
-//                        getDocumentRequest(),
-//                        getDocumentResponse(),
-//                        requestFields(
-//                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("Board ID"),
-//                                fieldWithPath("boardType").type(JsonFieldType.STRING).description("Board type").attributes(getBoardType()),
-//                                fieldWithPath("contentType").type(JsonFieldType.STRING).description("Content type").attributes(getContentType()),
-//                                fieldWithPath("title").type(JsonFieldType.STRING).description("Board title"),
-//                                fieldWithPath("content").type(JsonFieldType.STRING).description("Board content"),
-//                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").ignored(),
-//                                fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").optional()
-//                        ),
-//                        responseFields(
-//                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
-//                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
-//                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message").optional(),
-//                                fieldWithPath("data").type(JsonFieldType.STRING).description("Invoking API data").optional()
-//                        )
-//                ));
-//    }
-//
+    @Test
+    @Rollback
+    public void putUser() throws Exception {
+        //Given
+        List<User> userList = userRepository.findAll();
+
+        UserPutDto.Request reqDto = makeTestUserPutDto(userList.get(0).getId(), "name", "identifier", "test");
+
+        //When
+        ResultActions result = mockMvc.perform(
+                put("/api/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(reqDto))
+        );
+
+        //Then
+        result.andExpect(status().is(200))
+                .andDo(document("put-user",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("User ID"),
+                                fieldWithPath("name").type(JsonFieldType.STRING).description("User name"),
+                                fieldWithPath("identifier").type(JsonFieldType.STRING).description("User identifier"),
+                                fieldWithPath("password").type(JsonFieldType.STRING).description("User password"),
+                                fieldWithPath("type").type(JsonFieldType.STRING).description("User type").attributes(getUsersType()),
+                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").ignored(),
+                                fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").optional()
+                        ),
+                        responseFields(
+                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message").optional(),
+                                fieldWithPath("data").type(JsonFieldType.STRING).description("Invoking API data").optional()
+                        )
+                ));
+    }
+
 //    @Test
 //    @Rollback
 //    public void deleteBoard() throws Exception {

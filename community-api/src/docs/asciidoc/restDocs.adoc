@@ -131,3 +131,27 @@ include::{snippets}/get-user-list/http-request.adoc[]
 ==== Response
 include::{snippets}/get-user-list/response-fields.adoc[]
 include::{snippets}/get-user-list/http-response.adoc[]
+
+
+=== Post a user
+Using `POST` method, create a user.
+
+==== Request
+include::{snippets}/post-user/request-fields.adoc[]
+include::{snippets}/post-user/http-request.adoc[]
+
+==== Response
+include::{snippets}/post-user/response-fields.adoc[]
+include::{snippets}/post-user/http-response.adoc[]
+
+
+=== Put a user
+Using `PUT` method, modify a user.
+
+==== Request
+include::{snippets}/put-user/request-fields.adoc[]
+include::{snippets}/put-user/http-request.adoc[]
+
+==== Response
+include::{snippets}/put-user/response-fields.adoc[]
+include::{snippets}/put-user/http-response.adoc[]

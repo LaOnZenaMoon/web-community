@@ -1,5 +1,6 @@
 package me.lozm.object.dto.user;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import me.lozm.object.code.UsersType;
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 public class UserPutDto {
 
-    @Getter
+    @Getter @Builder
     public static class Request extends BaseUserDto {
         @NotNull
         private Long id;
@@ -22,8 +23,6 @@ public class UserPutDto {
         private String password;
 
         private UsersType type;
-
-        private int flag;
     }
 
 }
