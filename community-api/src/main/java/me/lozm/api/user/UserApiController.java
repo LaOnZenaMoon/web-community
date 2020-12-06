@@ -21,7 +21,7 @@ import static org.apache.commons.lang3.ObjectUtils.isEmpty;
 @CrossOrigin("*")
 @RestController @RequestMapping(value = "/api/user")
 @RequiredArgsConstructor
-public class UserAPIController {
+public class UserApiController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;

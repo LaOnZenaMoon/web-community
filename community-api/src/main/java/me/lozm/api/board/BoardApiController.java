@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @CrossOrigin("*")
 @RestController @RequestMapping(value = "/api/board")
 @RequiredArgsConstructor
-public class BoardAPIController {
+public class BoardApiController {
 
     private final BoardService boardService;
 
