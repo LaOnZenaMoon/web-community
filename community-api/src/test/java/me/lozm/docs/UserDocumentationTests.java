@@ -7,6 +7,7 @@ import me.lozm.entity.user.User;
 import me.lozm.object.code.BoardType;
 import me.lozm.object.code.UsersType;
 import me.lozm.object.dto.board.*;
+import me.lozm.object.dto.user.UserDeleteDto;
 import me.lozm.object.dto.user.UserPostDto;
 import me.lozm.object.dto.user.UserPutDto;
 import me.lozm.repository.board.BoardRepository;
@@ -189,49 +190,49 @@ public class UserDocumentationTests {
                 ));
     }
 
-//    @Test
-//    @Rollback
-//    public void deleteBoard() throws Exception {
-//        //Given
-//        List<Board> boardList = boardRepository.findAll();
-//        List<BoardDeleteDto> deletedBoardList = boardList.stream()
-//                .filter((board) -> board.getFlag() != 0)
-//                .map((board) ->
-//                        BoardDeleteDto.builder()
-//                                .id(board.getId())
-//                                .build()
-//                )
-//                .limit(10)
-//                .collect(Collectors.toList());
-//
-//        BoardDeleteDto.Request reqDto = new BoardDeleteDto.Request();
-//        reqDto.setList(deletedBoardList);
-//
-//        //When
-//        ResultActions result = mockMvc.perform(
-//                delete("/api/board")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(reqDto))
-//        );
-//
-//        //Then
-//        result.andExpect(status().is(200))
-//                .andDo(document("delete-board",
-//                        getDocumentRequest(),
-//                        getDocumentResponse(),
-//                        requestFields(
-//                                fieldWithPath("list").type(JsonFieldType.ARRAY).description("the list of deleted Board IDs"),
-//                                fieldWithPath("list[].id").type(JsonFieldType.NUMBER).description("Board ID"),
-//                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").ignored(),
-//                                fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").optional()
-//                        ),
-//                        responseFields(
-//                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
-//                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
-//                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message").optional(),
-//                                fieldWithPath("data").type(JsonFieldType.STRING).description("Invoking API data").optional()
-//                        )
-//                ));
-//    }
+    @Test
+    @Rollback
+    public void deleteUser() throws Exception {
+        //Given
+        List<User> userList = userRepository.findAll();
+        List<UserDeleteDto> deletedUserList = userList.stream()
+                .filter((board) -> board.getFlag() != 0)
+                .map((board) ->
+                        UserDeleteDto.builder()
+                                .id(board.getId())
+                                .build()
+                )
+                .limit(10)
+                .collect(Collectors.toList());
+
+        UserDeleteDto.Request reqDto = new UserDeleteDto.Request();
+        reqDto.setList(deletedUserList);
+
+        //When
+        ResultActions result = mockMvc.perform(
+                delete("/api/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(reqDto))
+        );
+
+        //Then
+        result.andExpect(status().is(200))
+                .andDo(document("delete-user",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("list").type(JsonFieldType.ARRAY).description("the list of deleted user IDs"),
+                                fieldWithPath("list[].id").type(JsonFieldType.NUMBER).description("User ID"),
+                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").ignored(),
+                                fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").optional()
+                        ),
+                        responseFields(
+                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message").optional(),
+                                fieldWithPath("data").type(JsonFieldType.STRING).description("Invoking API data").optional()
+                        )
+                ));
+    }
 
 }

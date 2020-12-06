@@ -79,7 +79,7 @@ public class BoardApiController {
     @DeleteMapping("/comment")
     public ApiResponseDto deleteComment(@RequestBody @Valid CommentDeleteDto.Request reqDto) {
         for(CommentDeleteDto dto : reqDto.getList()) {
-            boardService.delete(CommentVo.of(reqDto, dto));
+            boardService.delete(CommentVo.of(reqDto.getModifiedBy(), dto));
         }
 
         return ApiResponseDto.createException(ApiResponseCode.OK, null);

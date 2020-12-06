@@ -35,10 +35,10 @@ public class CommentVo extends BaseVo {
                 .build();
     }
 
-    public static CommentVo of(CommentDeleteDto.Request reqDto, CommentDeleteDto targetDto) {
+    public static CommentVo of(Long modifiedBy, CommentDeleteDto targetDto) {
         return CommentVo.builder()
                 .id(targetDto.getId())
-                .modifiedBy(reqDto.getModifiedBy())
+                .modifiedBy(modifiedBy)
                 .build();
     }
 

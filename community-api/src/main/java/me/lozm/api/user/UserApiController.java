@@ -52,12 +52,7 @@ public class UserApiController {
     @DeleteMapping
     public ApiResponseDto deleteUser(@RequestBody @Valid UserDeleteDto.Request reqDto) {
         for(UserDeleteDto dto : reqDto.getList()) {
-            UserVo userVo = UserVo.builder()
-                    .id(dto.getId())
-                    .modifiedBy(reqDto.getModifiedBy())
-                    .build();
-
-            userService.delete(userVo);
+            userService.delete(UserVo.of(reqDto.getModifiedBy(), dto));
         }
 
         return ApiResponseDto.createException(ApiResponseCode.OK, null);
