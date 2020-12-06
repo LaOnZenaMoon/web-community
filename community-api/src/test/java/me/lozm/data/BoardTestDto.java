@@ -7,6 +7,7 @@ import me.lozm.object.code.ContentType;
 import me.lozm.object.dto.board.BoardPostDto;
 import me.lozm.object.dto.board.BoardPutDto;
 import me.lozm.object.dto.board.CommentPostDto;
+import me.lozm.object.dto.board.CommentPutDto;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -37,6 +38,14 @@ public class BoardTestDto {
     public static CommentPostDto.Request makeTestCommentPostDto(Long boardId) {
         return CommentPostDto.Request.builder()
                 .boardId(boardId)
+                .commentType(getRandomCommentType())
+                .content(getRandomContent())
+                .build();
+    }
+
+    public static CommentPutDto.Request makeTestCommentPutDto(Long commentId) {
+        return CommentPutDto.Request.builder()
+                .id(commentId)
                 .commentType(getRandomCommentType())
                 .content(getRandomContent())
                 .build();

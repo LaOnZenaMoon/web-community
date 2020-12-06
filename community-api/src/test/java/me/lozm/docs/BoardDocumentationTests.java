@@ -2,12 +2,11 @@ package me.lozm.docs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.lozm.entity.board.Board;
+import me.lozm.entity.board.Comment;
 import me.lozm.object.code.BoardType;
-import me.lozm.object.dto.board.BoardDeleteDto;
-import me.lozm.object.dto.board.BoardPostDto;
-import me.lozm.object.dto.board.BoardPutDto;
-import me.lozm.object.dto.board.CommentPostDto;
+import me.lozm.object.dto.board.*;
 import me.lozm.repository.board.BoardRepository;
+import me.lozm.repository.board.CommentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +51,9 @@ public class BoardDocumentationTests {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
 
     @Test
@@ -346,6 +348,42 @@ public class BoardDocumentationTests {
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("Comment content"),
                                 fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").optional(),
                                 fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").ignored()
+                        ),
+                        responseFields(
+                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message").optional(),
+                                fieldWithPath("data").type(JsonFieldType.STRING).description("Invoking API data").optional()
+                        )
+                ));
+    }
+
+    @Test
+    @Rollback
+    public void putComment() throws Exception {
+        //Given
+        List<Comment> commentList = commentRepository.findAll();
+
+        CommentPutDto.Request reqDto = makeTestCommentPutDto(commentList.get(0).getId());
+
+        //When
+        ResultActions result = mockMvc.perform(
+                put("/api/board/comment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(reqDto))
+        );
+
+        //Then
+        result.andExpect(status().is(200))
+                .andDo(document("put-board",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("Comment ID"),
+                                fieldWithPath("commentType").type(JsonFieldType.STRING).description("Comment type").attributes(getCommentType()),
+                                fieldWithPath("content").type(JsonFieldType.STRING).description("Comment content"),
+                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").ignored(),
+                                fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").optional()
                         ),
                         responseFields(
                                 fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
