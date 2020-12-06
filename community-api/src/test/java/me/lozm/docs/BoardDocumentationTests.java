@@ -375,13 +375,58 @@ public class BoardDocumentationTests {
 
         //Then
         result.andExpect(status().is(200))
-                .andDo(document("put-board",
+                .andDo(document("put-comment",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
                                 fieldWithPath("id").type(JsonFieldType.NUMBER).description("Comment ID"),
                                 fieldWithPath("commentType").type(JsonFieldType.STRING).description("Comment type").attributes(getCommentType()),
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("Comment content"),
+                                fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").ignored(),
+                                fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").optional()
+                        ),
+                        responseFields(
+                                fieldWithPath("success").type(JsonFieldType.BOOLEAN).description("Whether invoking API is successful"),
+                                fieldWithPath("code").type(JsonFieldType.STRING).description("Invoking API code"),
+                                fieldWithPath("message").type(JsonFieldType.STRING).description("Invoking API message").optional(),
+                                fieldWithPath("data").type(JsonFieldType.STRING).description("Invoking API data").optional()
+                        )
+                ));
+    }
+
+    @Test
+    @Rollback
+    public void deleteComment() throws Exception {
+        //Given
+        List<Comment> commentList = commentRepository.findAll();
+        List<CommentDeleteDto> deletedCommentList = commentList.stream()
+                .filter((board) -> board.getFlag() != 0)
+                .map((board) ->
+                        CommentDeleteDto.builder()
+                                .id(board.getId())
+                                .build()
+                )
+                .limit(10)
+                .collect(Collectors.toList());
+
+        CommentDeleteDto.Request reqDto = new CommentDeleteDto.Request();
+        reqDto.setList(deletedCommentList);
+
+        //When
+        ResultActions result = mockMvc.perform(
+                delete("/api/board/comment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(reqDto))
+        );
+
+        //Then
+        result.andExpect(status().is(200))
+                .andDo(document("delete-comment",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("list").type(JsonFieldType.ARRAY).description("the list of deleted comment IDs"),
+                                fieldWithPath("list[].id").type(JsonFieldType.NUMBER).description("Comment ID"),
                                 fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").ignored(),
                                 fieldWithPath("modifiedBy").type(JsonFieldType.NUMBER).description("User ID who modified").optional()
                         ),

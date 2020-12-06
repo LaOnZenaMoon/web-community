@@ -1,18 +1,19 @@
 package me.lozm.object.dto.board;
 
-import lombok.Getter;
+import lombok.*;
 import me.lozm.object.dto.BaseUserDto;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@Getter @Builder
+@NoArgsConstructor @AllArgsConstructor
 public class CommentDeleteDto {
     @NotNull
     private Long id;
 
-    @Getter
+    @Getter @Setter
     public static class Request extends BaseUserDto {
         private List<CommentDeleteDto> list = new ArrayList<>();
     }

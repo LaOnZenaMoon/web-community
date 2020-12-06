@@ -72,3 +72,51 @@ include::{snippets}/put-board/http-request.adoc[]
 ==== Response
 include::{snippets}/put-board/response-fields.adoc[]
 include::{snippets}/put-board/http-response.adoc[]
+
+
+=== Delete a board
+Using `DELETE` method, remove a board.
+
+==== Request
+include::{snippets}/delete-board/request-fields.adoc[]
+include::{snippets}/delete-board/http-request.adoc[]
+
+==== Response
+include::{snippets}/delete-board/response-fields.adoc[]
+include::{snippets}/delete-board/http-response.adoc[]
+
+
+=== Post a comment
+Using `POST` method, create a comment.
+
+==== Request
+include::{snippets}/post-comment/request-fields.adoc[]
+include::{snippets}/post-comment/http-request.adoc[]
+
+==== Response
+include::{snippets}/post-comment/response-fields.adoc[]
+include::{snippets}/post-comment/http-response.adoc[]
+
+
+=== Put a comment
+Using `PUT` method, modify a comment.
+
+==== Request
+include::{snippets}/put-comment/request-fields.adoc[]
+include::{snippets}/put-comment/http-request.adoc[]
+
+==== Response
+include::{snippets}/put-comment/response-fields.adoc[]
+include::{snippets}/put-comment/http-response.adoc[]
+
+
+=== Delete a comment
+Using `DELETE` method, remove a comment.
+
+==== Request
+include::{snippets}/delete-comment/request-fields.adoc[]
+include::{snippets}/delete-comment/http-request.adoc[]
+
+==== Response
+include::{snippets}/delete-comment/response-fields.adoc[]
+include::{snippets}/delete-comment/http-response.adoc[]
