@@ -330,7 +330,7 @@ public class BoardDocumentationTests {
 
         //When
         ResultActions result = mockMvc.perform(
-                post("/api/comment")
+                post("/api/board/comment")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(reqDto))
         );
@@ -341,7 +341,7 @@ public class BoardDocumentationTests {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
-                                fieldWithPath("boardId").type(JsonFieldType.STRING).description("Board ID"),
+                                fieldWithPath("boardId").type(JsonFieldType.NUMBER).description("Board ID"),
                                 fieldWithPath("commentType").type(JsonFieldType.STRING).description("Comment type"),
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("Comment content"),
                                 fieldWithPath("createdBy").type(JsonFieldType.NUMBER).description("User ID who created").optional(),

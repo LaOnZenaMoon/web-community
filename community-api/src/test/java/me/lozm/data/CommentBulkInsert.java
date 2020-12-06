@@ -5,6 +5,7 @@ import me.lozm.entity.board.Board;
 import me.lozm.object.code.BoardType;
 import me.lozm.object.dto.board.CommentPostDto;
 import me.lozm.repository.board.BoardRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -34,13 +35,13 @@ public class CommentBulkInsert {
     private BoardRepository boardRepository;
 
 
-//    @Test
+    @Test
     public void setComment() {
-        List<Board> newsList = boardRepository.selectBoardListByBoardType(BoardType.NEWS);
-        List<Board> magazineList = boardRepository.selectBoardListByBoardType(BoardType.MAGAZINE);
-        List<Board> diaryList = boardRepository.selectBoardListByBoardType(BoardType.DIARY);
-        List<Board> freeContentsList = boardRepository.selectBoardListByBoardType(BoardType.FREE_CONTENTS);
-        List<Board> sportsList = boardRepository.selectBoardListByBoardType(BoardType.SPORTS);
+        List<Board> newsList = boardRepository.selectBoardListByBoardType(String.valueOf(BoardType.NEWS));
+        List<Board> magazineList = boardRepository.selectBoardListByBoardType(String.valueOf(BoardType.MAGAZINE));
+        List<Board> diaryList = boardRepository.selectBoardListByBoardType(String.valueOf(BoardType.DIARY));
+        List<Board> freeContentsList = boardRepository.selectBoardListByBoardType(String.valueOf(BoardType.FREE_CONTENTS));
+        List<Board> sportsList = boardRepository.selectBoardListByBoardType(String.valueOf(BoardType.SPORTS));
 
         newsList.forEach((news) -> postComment(news));
         magazineList.forEach((magazine) -> postComment(magazine));

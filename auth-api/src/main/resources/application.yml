@@ -5,6 +5,8 @@ spring:
   application:
     name: auth-api
 
+  jpa.hibernate.ddl-auto: none
+
   profiles:
     active: local
 

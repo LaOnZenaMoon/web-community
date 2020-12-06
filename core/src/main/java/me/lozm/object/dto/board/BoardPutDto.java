@@ -16,10 +16,10 @@ public class BoardPutDto {
         @NotNull
         private Long id;
 
-        @NotEmpty
+        @NotNull
         private BoardType boardType;
 
-        @NotEmpty
+        @NotNull
         private ContentType contentType;
 
         private String title;

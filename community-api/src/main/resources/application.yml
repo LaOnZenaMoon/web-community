@@ -5,6 +5,8 @@ spring:
   application:
     name: community-api
 
+  jpa.hibernate.ddl-auto: none
+
   profiles:
     active: local
 

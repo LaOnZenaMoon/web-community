@@ -15,7 +15,7 @@ public class CommentPostDto {
         @NotNull
         private Long boardId;
 
-        @NotEmpty
+        @NotNull
         private CommentType commentType;
 
         @NotEmpty
