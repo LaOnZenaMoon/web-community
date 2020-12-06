@@ -3,6 +3,7 @@ package me.lozm.docs;
 import me.lozm.object.code.BoardType;
 import me.lozm.object.code.CommentType;
 import me.lozm.object.code.ContentType;
+import me.lozm.object.code.UsersType;
 import org.springframework.restdocs.snippet.Attributes;
 
 import java.util.Arrays;
@@ -34,6 +35,14 @@ public interface DocumentFormatGenerator {
                 .collect(Collectors.joining(", "));
 
         return key("format").value(commentTypeArrToString);
+    }
+
+    static Attributes.Attribute getUsersType() {
+        String usersTypeArrToString = Arrays.stream(UsersType.values())
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
+
+        return key("format").value(usersTypeArrToString);
     }
 
     static Attributes.Attribute getDateFormat() {

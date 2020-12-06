@@ -15,8 +15,8 @@ public class UserGetDto {
     private Long id;
     private String name;
     private String identifier;
-    private String password;
     private UsersType type;
+    private int flag;
 
 
     public static UserGetDto of(User user) {
@@ -24,8 +24,8 @@ public class UserGetDto {
                 .id(user.getId())
                 .name(user.getName())
                 .identifier(user.getIdentifier())
-                .password(user.getPassword())
                 .type(user.getType())
+                .flag(user.getFlag())
                 .build();
     }
 

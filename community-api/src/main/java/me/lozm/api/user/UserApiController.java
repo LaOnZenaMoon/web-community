@@ -28,7 +28,7 @@ public class UserApiController {
 
 
     @GetMapping("/usersType/{usersType}")
-    public ApiResponseDto getUser(@PathVariable(value = "usersType") UsersType usersType, Pageable pageable) {
+    public ApiResponseDto getUserList(@PathVariable(value = "usersType") UsersType usersType, Pageable pageable) {
         UserGetDto.Response resDto = new UserGetDto.Response();
         resDto.setList(userService.getUserList(usersType, pageable));
 

@@ -12,8 +12,6 @@ endif::[]
 :operation-http-response-title: Example response
 
 == Board
-
-
 === Get the board list
 Using `GET` method, search the board list.
 
@@ -120,3 +118,16 @@ include::{snippets}/delete-comment/http-request.adoc[]
 ==== Response
 include::{snippets}/delete-comment/response-fields.adoc[]
 include::{snippets}/delete-comment/http-response.adoc[]
+
+
+== User
+=== Get the user list
+Using `GET` method, search the user list belonging to each user type.
+
+==== Request
+include::{snippets}/get-user-list/path-parameters.adoc[]
+include::{snippets}/get-user-list/http-request.adoc[]
+
+==== Response
+include::{snippets}/get-user-list/response-fields.adoc[]
+include::{snippets}/get-user-list/http-response.adoc[]
