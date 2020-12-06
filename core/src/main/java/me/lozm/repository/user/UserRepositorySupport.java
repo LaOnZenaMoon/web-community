@@ -50,7 +50,7 @@ public class UserRepositorySupport {
             return null;
         }
 
-        return user.type.eq(usersType);
+        return user.type.eq(String.valueOf(usersType));
     }
 
 }

@@ -32,14 +32,14 @@ public class User extends BaseEntity {
     private String password;
 
     @Column(name = "TYPE")
-    private UsersType type;
+    private String type;
 
 
     public void insertUser(UserVo userVo) {
         this.name = userVo.getName();
         this.identifier = userVo.getIdentifier();
         this.password = userVo.getPassword();
-        this.type = UsersType.valueOf(userVo.getType());
+        this.type = String.valueOf(userVo.getType());
         this.setBaseEntity(userVo.getCreatedBy(), null, 1);
     }
 
@@ -49,7 +49,7 @@ public class User extends BaseEntity {
         if(!ObjectUtils.isEmpty(userVo.getPassword())) {
             this.password = userVo.getPassword();
         }
-        this.type = StringUtils.isEmpty(userVo.getType()) ? null : UsersType.valueOf(userVo.getType());
+        this.type = StringUtils.isEmpty(userVo.getType()) ? null : String.valueOf(userVo.getType());
         this.setBaseEntity(null, userVo.getModifiedBy(), 1);
     }
 

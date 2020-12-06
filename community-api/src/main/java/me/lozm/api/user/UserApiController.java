@@ -37,31 +37,14 @@ public class UserApiController {
 
     @PostMapping
     public ApiResponseDto postUser(@RequestBody @Valid UserPostDto.Request reqDto) {
-        UserVo userVo = UserVo.builder()
-                .name(reqDto.getName())
-                .identifier(reqDto.getIdentifier())
-                .password(passwordEncoder.encode(reqDto.getPassword()))
-                .type(reqDto.getType())
-                .createdBy(reqDto.getCreatedBy())
-                .build();
-
-        userService.save(userVo);
+         userService.save(UserVo.of(reqDto, passwordEncoder.encode(reqDto.getPassword())));
 
         return ApiResponseDto.createException(ApiResponseCode.OK, null);
     }
 
     @PutMapping
     public ApiResponseDto putUser(@RequestBody @Valid UserPutDto.Request reqDto) {
-        UserVo userVo = UserVo.builder()
-                .id(reqDto.getId())
-                .name(reqDto.getName())
-                .identifier(reqDto.getIdentifier())
-                .password(isEmpty(reqDto.getPassword()) ? null : passwordEncoder.encode(reqDto.getPassword()))
-                .type(reqDto.getType())
-                .modifiedBy(reqDto.getModifiedBy())
-                .build();
-
-        userService.update(userVo);
+        userService.update(UserVo.of(reqDto, passwordEncoder.encode(reqDto.getPassword())));
 
         return ApiResponseDto.createException(ApiResponseCode.OK, null);
     }

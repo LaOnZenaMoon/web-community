@@ -15,7 +15,7 @@ public class UserGetDto {
     private Long id;
     private String name;
     private String identifier;
-    private UsersType type;
+    private String type;
     private int flag;
 
 

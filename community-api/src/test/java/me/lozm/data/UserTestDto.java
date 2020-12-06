@@ -30,9 +30,9 @@ public class UserTestDto {
                 .build();
     }
 
-    private static String getRandomUserType() {
+    private static UsersType getRandomUserType() {
         UsersType[] usersTypeArr = UsersType.values();
-        return usersTypeArr[ThreadLocalRandom.current().nextInt(0, usersTypeArr.length - 1)].toString();
+        return usersTypeArr[ThreadLocalRandom.current().nextInt(0, usersTypeArr.length - 1)];
     }
 
 }

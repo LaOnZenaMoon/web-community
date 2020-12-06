@@ -3,9 +3,11 @@ package me.lozm.object.dto.user;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import me.lozm.object.code.UsersType;
 import me.lozm.object.dto.BaseUserDto;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class UserPostDto {
 
@@ -21,8 +23,8 @@ public class UserPostDto {
         @Setter
         private String password;
 
-        @NotEmpty
-        private String type;
+        @NotNull
+        private UsersType type;
     }
 
 }

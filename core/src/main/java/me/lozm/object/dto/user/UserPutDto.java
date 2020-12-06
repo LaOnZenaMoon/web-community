@@ -2,6 +2,7 @@ package me.lozm.object.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.lozm.object.code.UsersType;
 import me.lozm.object.dto.BaseUserDto;
 
 import javax.validation.constraints.NotNull;
@@ -20,7 +21,7 @@ public class UserPutDto {
         @Setter
         private String password;
 
-        private String type;
+        private UsersType type;
 
         private int flag;
     }
