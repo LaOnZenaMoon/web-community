@@ -261,7 +261,7 @@
 						success: function (result) {
 							if(result.success) {
 								comment.gridTarget().clear().draw();
-								comment.gridTarget().rows.add(result.data.list).draw();
+								comment.gridTarget().rows.add(result.data.list.content).draw();
 							}
 						},
 						error: function (xhr, status, error) {

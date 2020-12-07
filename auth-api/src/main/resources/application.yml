@@ -39,3 +39,8 @@ ribbon:
   MaxTotalConnections: 300
   MaxConnectionsPerHost: 100
   retryableStatusCodes: 500
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true

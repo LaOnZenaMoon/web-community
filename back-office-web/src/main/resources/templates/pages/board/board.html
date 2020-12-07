@@ -156,10 +156,9 @@
 					url: lozm.GATEWAY_SERVER + "/community-api/api/board/boardType/ALL",
 					callback: {
 						success: function (result) {
-
 							if(result.success) {
 								board.gridTarget().clear().draw();
-								board.gridTarget().rows.add(result.data.list).draw();
+								board.gridTarget().rows.add(result.data.list.content).draw();
 							}
 						},
 						error: function (xhr, status, error) {

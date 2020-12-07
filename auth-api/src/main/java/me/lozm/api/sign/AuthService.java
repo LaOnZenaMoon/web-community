@@ -48,7 +48,7 @@ public class AuthService implements UserDetailsService {
 
 
     private Optional<User> findUserInfo(AuthVo authVo) {
-        Optional<User> findUser = authRepositorySupport.selectUserInfo(authVo);
+        Optional<User> findUser = Optional.ofNullable(authRepositorySupport.selectUserInfo(authVo));
 
         if (!findUser.isPresent()) {
             log.error("Fail to sign in. User name: {}, User Identifier: {}", authVo.getName(), authVo.getIdentifier());

@@ -247,7 +247,7 @@
 						success: function (result) {
 							if(result.success) {
 								user.gridTarget().clear().draw();
-								user.gridTarget().rows.add(result.data.list).draw();
+								user.gridTarget().rows.add(result.data.list.content).draw();
 							}
 						},
 						error: function (xhr, status, error) {

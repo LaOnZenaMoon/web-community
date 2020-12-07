@@ -35,7 +35,7 @@ public class CommentBulkInsert {
     private BoardRepository boardRepository;
 
 
-//    @Test
+    @Test
     public void setComment() {
         List<Board> newsList = boardRepository.selectBoardListByBoardType(String.valueOf(BoardType.NEWS));
         List<Board> magazineList = boardRepository.selectBoardListByBoardType(String.valueOf(BoardType.MAGAZINE));

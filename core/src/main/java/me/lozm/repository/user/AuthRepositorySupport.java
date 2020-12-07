@@ -18,11 +18,15 @@ public class AuthRepositorySupport {
     private final JPAQueryFactory jpaQueryFactory;
 
 
-    public Optional<User> selectUserInfo(AuthVo authVo) {
-        return Optional.ofNullable(jpaQueryFactory
+    public User selectUserInfo(AuthVo authVo) {
+        return jpaQueryFactory
                 .select(user)
                 .from(user)
-                .fetchOne());
+                .where(
+                        user.flag.eq(1)
+                        .and(user.identifier.eq(authVo.getIdentifier()))
+                )
+                .fetchOne();
     }
 
 }
