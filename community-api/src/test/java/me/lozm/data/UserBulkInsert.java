@@ -30,7 +30,7 @@ public class UserBulkInsert {
     private ObjectMapper objectMapper;
 
 
-    @Test
+//    @Test
     public void setUser() {
         postUser(makeTestUserPostDto("JUN LEE", "junlee"));
 

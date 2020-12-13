@@ -27,7 +27,7 @@ public class BoardBulkInsert {
     private ObjectMapper objectMapper;
 
 
-    @Test
+//    @Test
     public void setBoard() {
         for (int i = 0; i <2000 ; i++) {
             postBoard();

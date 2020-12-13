@@ -3,7 +3,6 @@ package me.lozm.repository.user;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import me.lozm.entity.board.Board;
 import me.lozm.entity.user.User;
 import me.lozm.object.code.UsersType;
 import org.springframework.data.domain.Pageable;

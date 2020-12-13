@@ -3,8 +3,11 @@ package me.lozm.api.sign;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.lozm.entity.user.User;
+import me.lozm.object.code.UsersType;
+import me.lozm.object.dto.ApiException;
+import me.lozm.object.dto.ApiResponseCode;
 import me.lozm.object.vo.auth.AuthVo;
-import me.lozm.repository.RepositorySupport;
+import me.lozm.repository.user.AuthRepositorySupport;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,56 +16,56 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class AuthService implements UserDetailsService {
-    
-    private final RepositorySupport repositorySupport;
+
+    private final AuthRepositorySupport authRepositorySupport;
 
 
     public AuthVo getUserInfo(AuthVo authVo) {
-        List<User> users = repositorySupport.selectUserInfoForJwt(authVo);
-
-        return AuthVo.builder()
-                .id(users.get(0).getId())
-                .name(users.get(0).getName())
-                .identifier(users.get(0).getIdentifier())
-                .password(users.get(0).getPassword())
-                .type(users.get(0).getType())
-                .build();
+        Optional<User> findUser = findUserInfo(authVo);
+        return buildAuthVo(findUser);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AuthVo authVo = AuthVo.builder()
+        Optional<User> findUser = findUserInfo(AuthVo.builder()
                 .identifier(username)
-                .build();
-
-        List<User> users = repositorySupport.selectUserInfoForJwt(authVo);
-        AuthVo jwt = AuthVo.builder()
-                .id(users.get(0).getId())
-                .name(users.get(0).getName())
-                .identifier(users.get(0).getIdentifier())
-                .password(users.get(0).getPassword())
-                .type(users.get(0).getType())
-                .build();
-
-        if (ObjectUtils.isNotEmpty(jwt)) {
-            log.debug("login success");
-        } else {
-            log.debug("login failed");
-            throw new UsernameNotFoundException("User not found with username: " + username);
-        }
+                .build());
+        AuthVo authVo = buildAuthVo(findUser);
 
         return new org.springframework.security.core.userdetails.User(
-                jwt.getIdentifier(),
-                jwt.getPassword(),
+                authVo.getIdentifier(),
+                authVo.getPassword(),
                 new ArrayList<>()
         );
     }
+
+
+    private Optional<User> findUserInfo(AuthVo authVo) {
+        Optional<User> findUser = authRepositorySupport.selectUserInfo(authVo);
+
+        if (!findUser.isPresent()) {
+            log.error("Fail to sign in. User name: {}, User Identifier: {}", authVo.getName(), authVo.getIdentifier());
+            throw new ApiException(ApiResponseCode.BAD_REQUEST);
+        }
+        return findUser;
+    }
+
+    private AuthVo buildAuthVo(Optional<User> findUser) {
+        return AuthVo.builder()
+                .id(findUser.get().getId())
+                .name(findUser.get().getName())
+                .identifier(findUser.get().getIdentifier())
+                .password(findUser.get().getPassword())
+                .type(UsersType.valueOf(findUser.get().getType()))
+                .build();
+    }
+
 }
 
