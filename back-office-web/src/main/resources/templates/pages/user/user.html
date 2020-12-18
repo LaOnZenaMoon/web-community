@@ -174,10 +174,10 @@
 					dom: 'Bftrip',
 					columns: [
 						{title: 'id',               	data: 'id',             	visible: false},
-						{title: 'password',             data: 'password',           visible: false},
-						{title: 'Identifier', 			data: 'identifier', 		width: "40%"},
-						{title: 'Name', 				data: 'name', 				width: "40%"},
-						{title: 'Type', 				data: 'type', 				width: "20%"},
+						{title: 'Identifier', 			data: 'identifier', 		width: "40%",		className: "dt-body-left",},
+						{title: 'Name', 				data: 'name', 				width: "40%",		className: "dt-body-left",},
+						{title: 'Type', 				data: 'type', 				width: "20%",		className: "dt-body-center",},
+						{title: 'Flag', 				data: 'flag', 				width: "20%",		className: "dt-body-center",},
 					],
 					data: [],
 					select: {
@@ -242,7 +242,7 @@
 			},
 			getGridData: function () {
 				lozm.func.requestGet({
-					url: lozm.GATEWAY_SERVER + "/community-api/api/user",
+					url: lozm.GATEWAY_SERVER + "/community-api/api/user/usersType/ALL",
 					callback: {
 						success: function (result) {
 							if(result.success) {

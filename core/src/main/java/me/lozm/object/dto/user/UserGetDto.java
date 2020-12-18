@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.lozm.entity.user.User;
-import me.lozm.object.code.UsersType;
 import org.springframework.data.domain.Page;
 
 @Getter @Builder
