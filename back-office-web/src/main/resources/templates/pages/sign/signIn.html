@@ -84,7 +84,6 @@
                 },
                 callback: {
                     success: function (response) {
-                        console.log(response);
                         if (response.status === 200) {
                             lozm.func.insertJwt(response.data.token);
                             lozm.func.movePage(response.data.previousPage);
