@@ -89,16 +89,10 @@
                             lozm.func.movePage(response.data.previousPage);
                             return;
                         }
-
-                        lozm.func.alertFail(response.message);
+                        lozm.func.alertFail('Failed to sign in. Check the information about the account or please contact your administrator.');
                     },
                     error: function (xhr, status, error) {
-                        var _message;
-                        if (xhr.status === 401) _message = '계정 정보가 잘못되었습니다.';
-                        lozm.func.alertFail(_message);
-                        console.log(xhr);
-                        console.log(status);
-                        console.log(error);
+                        lozm.func.alertFail('Failed to sign in. Check the information about the account or please contact your administrator.');
                     }
                 }
             })
