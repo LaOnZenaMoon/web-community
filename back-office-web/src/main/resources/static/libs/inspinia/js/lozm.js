@@ -56,16 +56,6 @@
         return !isEmpty(value);
     };
 
-    var requestAjax = function(ajaxOptions) {
-        if (isEmpty(ajaxOptions.showLoadingBar) || ajaxOptions.showLoadingBar) {
-            showLoadingBar();
-        }
-
-        ajaxDefault(ajaxOptions);
-        $.ajax(ajaxOptions);
-        ajaxDefault();
-    };
-
     var movePage = lozm.func.movePage = function(_url) {
         if(isEmpty(_url) || checkJwtIsNotValid()) {
             deleteJwt();
@@ -76,52 +66,6 @@
         location.href = _url;
     };
 
-    var ajaxDefault = function(options) {
-        if(options !== undefined && !options.url.includes("/api/sign/in")) {
-            if(checkJwtIsNotValid()) movePage();
-        }
-
-        var ajaxOptions = $.extend({
-            url: null
-            , type: "GET"
-            , data: null
-            , dataType: null
-            , contentType: "application/x-www-form-urlencoded;"
-            , async: true
-            , success: null
-            , headers: {
-                Authorization: getJwt()
-            }
-            , beforeSend: function(xhr) {
-
-                // xhr.setRequestHeader(tokenHeader, token);
-            }
-        }, options);
-
-        ajaxOptions.success = function(resData) {
-            if (options.callback.success) {
-                options.callback.success(resData);
-            }
-        };
-
-        ajaxOptions.error = function(xhr, status, error) {
-            if (options.callback.error) {
-                options.callback.error(xhr, status, error);
-            }
-        };
-
-        ajaxOptions.complete = function() {
-            hideLoadingBar();
-
-            if (options.callback.complete) {
-                options.callback.complete();
-            }
-        };
-
-        $.ajaxSetup(ajaxOptions);
-    };
-
-
     var showLoadingBar = lozm.func.showLoadingBar = function() {
         $("#pageloader-overlay").show();
     };
@@ -131,56 +75,35 @@
     };
 
     lozm.func.requestGet = function(options) {
-        var ajaxOptions = $.extend({
-            type: "GET"
-            , contentType: "application/x-www-form-urlencoded; charset=UTF-8"
-            , async: true
-        }, options);
-
-        if (isNotEmpty(options.data)) {
-            ajaxOptions.data = $.param(options.data);
-        }
-
-        requestAjax(ajaxOptions);
+        showLoadingBar();
+        axios.get(options.url, options.data)
+            .then(options.callback.success)
+            .catch(options.callback.error)
+            .then(hideLoadingBar);
     };
 
     lozm.func.requestPost = function(options) {
-        var ajaxOptions = $.extend({
-            type: "POST"
-            , dataType: "json"
-            , contentType: "application/json; charset=UTF-8"
-            , async: true
-        }, options);
-
-        ajaxOptions.data = JSON.stringify(isNotEmpty(options.data) ? options.data : {});
-
-        requestAjax(ajaxOptions);
+        showLoadingBar();
+        axios.post(options.url, options.data)
+            .then(options.callback.success)
+            .catch(options.callback.error)
+            .then(hideLoadingBar);
     };
 
     lozm.func.requestPut = function(options) {
-        var ajaxOptions = $.extend({
-            type: "PUT"
-            , dataType: "json"
-            , contentType: "application/json; charset=UTF-8"
-            , async: true
-        }, options);
-
-        ajaxOptions.data = JSON.stringify(isNotEmpty(options.data) ? options.data : {});
-
-        requestAjax(ajaxOptions);
+        showLoadingBar();
+        axios.put(options.url, options.data)
+            .then(options.callback.success)
+            .catch(options.callback.error)
+            .then(hideLoadingBar);
     };
 
     lozm.func.requestDelete = function(options) {
-        var ajaxOptions = $.extend({
-            type: "DELETE"
-            , dataType: "json"
-            , contentType: "application/json; charset=UTF-8"
-            , async: true
-        }, options);
-
-        ajaxOptions.data = JSON.stringify(isNotEmpty(options.data) ? options.data : {});
-
-        requestAjax(ajaxOptions);
+        showLoadingBar();
+        axios.delete(options.url, options.data)
+            .then(options.callback.success)
+            .catch(options.callback.error)
+            .then(hideLoadingBar);
     };
 
     lozm.func.setDetail = function (_id, _data) {

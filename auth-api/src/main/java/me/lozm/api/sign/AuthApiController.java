@@ -1,8 +1,6 @@
 package me.lozm.api.sign;
 
 import lombok.RequiredArgsConstructor;
-import me.lozm.object.dto.ApiResponseCode;
-import me.lozm.object.dto.ApiResponseDto;
 import me.lozm.object.dto.auth.AuthPostDto;
 import me.lozm.object.vo.auth.AuthVo;
 import me.lozm.global.jwt.JwtAuthenticationService;
@@ -19,7 +17,7 @@ public class AuthApiController {
 
 
     @PostMapping(value = "/in")
-    public ApiResponseDto signIn(@RequestBody @Valid AuthPostDto.Request reqDto) {
+    public AuthPostDto.Response signIn(@RequestBody @Valid AuthPostDto.Request reqDto) {
         AuthVo authVo = AuthVo.builder()
                 .identifier(reqDto.getIdentifier())
                 .password(reqDto.getPassword())
@@ -30,7 +28,7 @@ public class AuthApiController {
         resDto.setToken(jwt.getToken());
         resDto.setPreviousPage("/pages/home");
 
-        return ApiResponseDto.createException(ApiResponseCode.OK, resDto);
+        return resDto;
     }
 
 }
