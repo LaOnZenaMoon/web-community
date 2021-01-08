@@ -93,6 +93,7 @@
                 Authorization: getJwt()
             }
             , beforeSend: function(xhr) {
+
                 // xhr.setRequestHeader(tokenHeader, token);
             }
         }, options);

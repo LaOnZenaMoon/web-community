@@ -13,7 +13,7 @@
 </head>
 
 <body class="gray-bg">
-    <div class="loginColumns animated fadeInDown">
+<div class="loginColumns animated fadeInDown">
     <div class="row">
 
         <div class="col-md-6">
@@ -60,8 +60,8 @@
 <script th:inline="javascript" type="text/javascript">
     $(document).ready(function () {
         $("#post_signForm").validate({
-            submitHandler: function(form) {
-                sign.submit();
+            submitHandler: function (form) {
+                sign.in();
             },
             rules: {
                 identifier: {
@@ -75,34 +75,24 @@
     });
 
     var sign = {
-        submit: function () {
-            lozm.func.requestPost({
-                url: lozm.GATEWAY_SERVER + "/auth-api/api/sign/in",
-                data: {
+        in: function () {
+            axios.post(lozm.GATEWAY_SERVER + "/auth-api/api/sign/in",
+                {
                     identifier: $("#identifier").val(),
                     password: $("#password").val()
-                },
-                // async: false,
-                callback: {
-                    success: function (result) {
-                        if(result.success) {
-                            lozm.func.insertJwt(result.data.token);
-                            lozm.func.movePage(result.data.previousPage);
-                        } else {
-                            lozm.func.alertWarning(result.message);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        var _message = "";
-                        if (xhr.status === 401) _message = "계정 정보가 잘못되었습니다.";
-                        lozm.func.alertWarning(_message);
-                        console.log(xhr);
-                        console.log(status);
-                        console.log(error);
+                })
+                .then(function (response) {
+                    if (response.data.success) {
+                        lozm.func.insertJwt(response.data.data.token);
+                        lozm.func.movePage(response.data.data.previousPage);
+                    } else {
+                        lozm.func.alertWarning(response.data.message);
                     }
-                }
-            });
-        }
+                })
+                .catch(function (error) {
+                    lozm.func.alertWarning(error.message);
+                });
+        },
     };
 </script>
 
