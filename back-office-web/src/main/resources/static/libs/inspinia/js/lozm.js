@@ -82,8 +82,8 @@
     }
 
     var setHttpDefault = function (options) {
-        if(options !== undefined && !options.url.includes('/api/sign/in')) {
-            if(checkJwtIsNotValid()) movePage();
+        if (options !== undefined && !options.url.includes('/api/sign/in')) {
+            if (checkJwtIsNotValid()) movePage();
         }
 
         showLoadingBar();
@@ -197,6 +197,14 @@
             console.log(e);
             return false;
         }
+    }
+
+    lozm.func.getSelectedRows = function (_grid) {
+        return _grid.gridTarget().rows({selected: true}).data().toArray();
+    }
+
+    lozm.func.confirmBeforeDeleteGridData = function () {
+        return confirm('Are you sure to delete the data?');
     }
 
     lozm.func.signOut = function () {
