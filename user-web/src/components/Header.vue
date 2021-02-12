@@ -1,39 +1,38 @@
 <template>
   <v-app-bar app color="primary" flat>
-    <v-avatar
-      :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'" size="32"
-    ></v-avatar>
-
-    <v-tabs centered class="ml-n9" color="white">
-      <v-tab>
+    <v-app-bar-title>
+      LaOnZenaMoon
+    </v-app-bar-title>
+    <v-tabs centered color="white">
+      <v-tab to="/">
+        Main
+      </v-tab>
+      <v-tab to="/notice/board">
         Notice
       </v-tab>
-      <v-tab>
+      <v-tab to="/column/board">
         Column
       </v-tab>
-      <v-tab>
-        Community 1
+      <v-tab to="/free/board">
+        Free Community
       </v-tab>
-      <v-tab>
-        Community 2
+      <v-tab to="/expert/board">
+        Expert Community
       </v-tab>
-      <v-tab>
-        Community 3
+      <v-tab to="/multimedia/board">
+        Multimedia
       </v-tab>
-      <v-tab>
-        Community 4
+      <v-tab to="/comedy/board">
+        Comedy
       </v-tab>
-      <v-tab>
-        Pictures 1
-      </v-tab>
-      <v-tab>
-        Pictures 2
+      <v-tab to="/market">
+        Market
       </v-tab>
     </v-tabs>
 
-    <v-avatar
-      class="hidden-sm-and-down" color="white shrink" size="32"
-    ></v-avatar>
+    <v-col cols="auto">
+      <v-icon class="mx-auto">mdi-account-circle</v-icon>
+    </v-col>
   </v-app-bar>
 </template>
 
