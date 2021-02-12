@@ -6,9 +6,9 @@
         :page.sync="page" @page-count="pageCount = $event" :items-per-page="itemsPerPage"
         :headers="headers" :items="items">
         <template v-slot:top>
-          <v-toolbar flat color="grey lighten-2">
+          <v-toolbar flat color="grey lighten-2" height="30">
             <v-row>
-              <v-col cols="auto" sm="5" class="ml-4">
+              <v-col class="">
                 <h2>{{ title }}</h2>
               </v-col>
             </v-row>
@@ -75,12 +75,6 @@ export default {
     },
     addButtonClicked() {
       this.$emit('addItem')
-    },
-    editItem() {
-      console.log('edited')
-    },
-    deleteItem() {
-      console.log('deleted')
     },
   },
 }

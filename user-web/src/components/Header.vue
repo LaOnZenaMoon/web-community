@@ -1,8 +1,5 @@
 <template>
-  <v-app-bar app color="primary" flat>
-    <v-app-bar-title>
-      LaOnZenaMoon
-    </v-app-bar-title>
+  <v-app-bar app color="#009999">
     <v-tabs centered color="white">
       <v-tab to="/">
         Main
