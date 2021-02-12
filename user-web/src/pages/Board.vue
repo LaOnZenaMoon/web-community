@@ -4,7 +4,6 @@
       <v-col sm="9">
         <v-sheet class="ma-2" color="grey">
           <Grid v-bind="gridProps1" v-on="{addItem: changeGrid1Modal}"></Grid>
-          <v-data-footer disable-items-per-page="true"></v-data-footer>
         </v-sheet>
       </v-col>
       <v-col sm="3">

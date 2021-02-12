@@ -15,7 +15,7 @@
           </v-toolbar>
         </template>
       </v-data-table>
-      <v-row class="ma-3">
+      <v-row class="ma-2">
         <v-col sm="6">
           <v-pagination
             total-visible="10"
