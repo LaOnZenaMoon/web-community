@@ -1,88 +1,103 @@
 <template>
-    <v-app id="inspire">
-        <v-app-bar
-            app
-            color="white"
-            flat
-        >
-            <v-avatar
-                :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'"
-                size="32"
-            ></v-avatar>
+  <v-app id="inspire">
+    <Header></Header>
 
-            <v-tabs
-                centered
-                class="ml-n9"
-                color="grey darken-1"
-            >
-                <v-tab>
-                    item 1
-                </v-tab>
-                <v-tab>
-                    item 1
-                </v-tab>
-                <v-tab>
-                    item 1
-                </v-tab>
-                <v-tab>
-                    item 1
-                </v-tab>
-            </v-tabs>
-
-            <v-avatar
-                class="hidden-sm-and-down"
-                color="grey darken-1 shrink"
-                size="32"
-            ></v-avatar>
-        </v-app-bar>
-
-        <v-main class="grey lighten-3">
-            <v-container>
-                <v-row>
-                    <v-col
-                        cols="12"
-                        sm="2"
+    <v-main class="grey lighten-3">
+      <v-container>
+        <v-row>
+          <v-col sm="10" offset="1">
+            <v-sheet min-height="1200">
+              <v-row>
+                <v-col sm="9">
+                  <v-sheet class="ma-3" height="400">
+                    <v-carousel
+                      height="400"
+                      hide-delimiter-background
+                      show-arrows-on-hover
                     >
+                      <v-carousel-item
+                        v-for="(slide, i) in slides"
+                        :key="i"
+                      >
                         <v-sheet
-                            rounded="lg"
-                            min-height="268"
+                          :color="colors[i]"
+                          height="100%"
                         >
-                            <!--  -->
+                          <v-row
+                            class="fill-height"
+                            align="center"
+                            justify="center"
+                          >
+                            <div class="display-3">
+                              {{ slide }} Slide
+                            </div>
+                          </v-row>
                         </v-sheet>
-                    </v-col>
+                      </v-carousel-item>
+                    </v-carousel>
+                  </v-sheet>
+                </v-col>
+                <v-col sm="3">
+                  <v-sheet class="ma-3" color="grey" height="390">
+                    <v-form>
+                      <v-text-field
+                        label="ID"
+                      ></v-text-field>
+                      <v-text-field
+                        label="Password"
+                        type="password"
+                      ></v-text-field>
+                    </v-form>
+                  </v-sheet>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col sm="9">
+                  <v-sheet class="ma-3" height="800" color="grey">
+                  </v-sheet>
+                </v-col>
+                <v-col sm="3">
+                  <v-sheet class="ma-3" height="800" color="grey">
+                  </v-sheet>
+                </v-col>
+              </v-row>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
 
-                    <v-col
-                        cols="12"
-                        sm="8"
-                    >
-                        <v-sheet
-                            min-height="70vh"
-                            rounded="lg"
-                        >
-                            <!--  -->
-                        </v-sheet>
-                    </v-col>
-
-                    <v-col
-                        cols="12"
-                        sm="2"
-                    >
-                        <v-sheet
-                            rounded="lg"
-                            min-height="268"
-                        >
-                            <!--  -->
-                        </v-sheet>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-main>
-    </v-app>
+    <Footer></Footer>
+  </v-app>
 </template>
 
 <script>
-export default {
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
+export default {
+  components: {
+    Header,
+    Footer,
+  },
+  data() {
+    return {
+      colors: [
+        'indigo',
+        'warning',
+        'pink darken-2',
+        'red lighten-1',
+        'deep-purple accent-4',
+      ],
+      slides: [
+        'First',
+        'Second',
+        'Third',
+        'Fourth',
+        'Fifth',
+      ],
+    };
+  }
 }
 </script>
 
