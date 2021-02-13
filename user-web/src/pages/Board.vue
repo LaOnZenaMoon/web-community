@@ -26,6 +26,10 @@ export default {
     Grid,
     Modal,
   },
+  mounted() {
+    const title = this.$route.name;
+    console.log(title);
+  },
   data() {
     return {
       gridProps1: {
@@ -42,9 +46,6 @@ export default {
   methods: {
     changeGrid1Modal() {
       this.grid1ModalProps.isOpen = !this.grid1ModalProps.isOpen
-    },
-    changeGrid2Modal() {
-      this.grid2ModalProps.isOpen = !this.grid2ModalProps.isOpen
     },
   },
 }
