@@ -7,10 +7,6 @@ import createCommonBoard from "@/pages/CommonBoard";
 
 Vue.use(VueRouter);
 
-function log() {
-  console.log('pass');
-}
-
 const routes = [
   {
     path: '/',
@@ -22,7 +18,6 @@ const routes = [
     name: 'Notice',
     component: createCommonBoard('Notice'),
     beforeEnter: (to, from, next) => {
-      log();
       next();
     },
   },
@@ -31,7 +26,6 @@ const routes = [
     name: 'Column',
     component: createCommonBoard('Column'),
     beforeEnter: (to, from, next) => {
-      log();
       next();
     },
   },
@@ -40,7 +34,6 @@ const routes = [
     name: 'Free Community',
     component: createCommonBoard('Free Community'),
     beforeEnter: (to, from, next) => {
-      log();
       next();
     },
   },
@@ -49,7 +42,6 @@ const routes = [
     name: 'Expert Community',
     component: createCommonBoard('Expert Community'),
     beforeEnter: (to, from, next) => {
-      log();
       next();
     },
   },
@@ -58,7 +50,6 @@ const routes = [
     name: 'Multimedia',
     component: createCommonBoard('Multimedia'),
     beforeEnter: (to, from, next) => {
-      log();
       next();
     },
   },
@@ -67,7 +58,6 @@ const routes = [
     name: 'Comedy',
     component: createCommonBoard('Comedy'),
     beforeEnter: (to, from, next) => {
-      log();
       next();
     },
   },

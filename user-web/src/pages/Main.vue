@@ -31,7 +31,7 @@
         </v-sheet>
       </v-col>
       <v-col sm="3">
-        <v-sheet class="ma-2" color="grey" height="390">
+        <v-sheet class="ma-2" color="grey" height="400">
           <v-form>
             <v-text-field
               label="ID"

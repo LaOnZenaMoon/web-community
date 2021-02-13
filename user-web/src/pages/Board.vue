@@ -1,9 +1,9 @@
 <template>
-  <v-sheet color="grey lighten-2">
+  <v-sheet color="grey lighten-1">
     <v-row>
       <v-col sm="9">
         <v-sheet class="ma-2" color="grey">
-          <Grid v-bind="gridProps1" v-on="{addItem: changeGrid1Modal}"></Grid>
+          <Grid v-bind="gridData" v-on="{addItem: changeModalStatus}"></Grid>
         </v-sheet>
       </v-col>
       <v-col sm="3">
@@ -12,7 +12,7 @@
       </v-col>
     </v-row>
 
-    <Modal v-bind="grid1ModalProps" v-on="{closeModal: changeGrid1Modal}"></Modal>
+    <Modal v-bind="modalData" v-on="{closeModal: changeModalStatus}"></Modal>
   </v-sheet>
 </template>
 
@@ -26,26 +26,23 @@ export default {
     Grid,
     Modal,
   },
-  mounted() {
-    const title = this.$route.name;
-    console.log(title);
-  },
   data() {
     return {
-      gridProps1: {
+      gridData: {
         title: this.$route.name,
         headers: Test.header1,
         items: Test.items1
       },
-      grid1ModalProps: {
+      modalData: {
+        title: this.$route.name,
         isOpen: false,
-        title: 'test1 modal',
       },
     };
   },
   methods: {
-    changeGrid1Modal() {
-      this.grid1ModalProps.isOpen = !this.grid1ModalProps.isOpen
+    changeModalStatus() {
+      console.log('changeModalStatus')
+      this.modalData.isOpen = !this.modalData.isOpen
     },
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <v-footer
-    color="grey lighten-2" padless
+    color="grey" padless
   >
     <v-row
       justify="center" no-gutters
