@@ -7,6 +7,7 @@ import Profile from "../views/Profile.vue";
 import MainNavbar from "../layout/MainNavbar.vue";
 import MainFooter from "../layout/MainFooter.vue";
 import Main from "../views/Main";
+import Board from "@/views/Board";
 
 Vue.use(Router);
 
@@ -14,7 +15,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: "/main",
+      path: "/",
       name: "Main",
       components: { default: Main, header: MainNavbar, footer: MainFooter },
       props: {
@@ -23,7 +24,16 @@ export default new Router({
       }
     },
     {
-      path: "/",
+      path: "/notice/board",
+      name: "Notice",
+      components: { default: Board, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: "black" }
+      }
+    },
+    {
+      path: "/index",
       name: "index",
       components: { default: Index, header: MainNavbar, footer: MainFooter },
       props: {

@@ -44,15 +44,13 @@
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <li>
-                          <a href="#/">
+                          <a href="/notice/board">
                             <i class="material-icons">content_paste</i>
                             <p>Notice 1</p>
                           </a>
                         </li>
                         <li>
-                          <a
-                            href="https://demos.creative-tim.com/vue-material-kit/documentation/"
-                          >
+                          <a href="/notice/board">
                             <i class="material-icons">content_paste</i>
                             <p>Notice 2</p>
                           </a>
@@ -80,15 +78,13 @@
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <li>
-                          <a href="#/">
+                          <a href="/column/board">
                             <i class="material-icons">view_column</i>
                             <p>Column 1</p>
                           </a>
                         </li>
                         <li>
-                          <a
-                            href="https://demos.creative-tim.com/vue-material-kit/documentation/"
-                          >
+                          <a href="/column/board">
                             <i class="material-icons">view_column</i>
                             <p>Column 2</p>
                           </a>
@@ -116,15 +112,13 @@
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <li>
-                          <a href="#/">
+                          <a href="/community/board">
                             <i class="material-icons">people</i>
                             <p>Community 1</p>
                           </a>
                         </li>
                         <li>
-                          <a
-                            href="https://demos.creative-tim.com/vue-material-kit/documentation/"
-                          >
+                          <a href="/community/board">
                             <i class="material-icons">people</i>
                             <p>Community 2</p>
                           </a>
@@ -152,15 +146,13 @@
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <li>
-                          <a href="#/">
+                          <a href="/multimedia/board">
                             <i class="material-icons">perm_media</i>
                             <p>Multimedia 1</p>
                           </a>
                         </li>
                         <li>
-                          <a
-                            href="https://demos.creative-tim.com/vue-material-kit/documentation/"
-                          >
+                          <a href="/multimedia/board">
                             <i class="material-icons">perm_media</i>
                             <p>Multimedia 2</p>
                           </a>
@@ -172,7 +164,7 @@
               </li>
 
               <md-list-item
-                href="#"
+                href="/comedy/board"
                 target="_blank"
               >
                 <i class="material-icons">gesture</i>

@@ -1,20 +1,49 @@
 <template>
-  <div class="wrapper">
-    <parallax class="page-header header-filter" :style="headerStyle">
-      <div class="md-layout">
-        <div class="md-layout-item">
-          <div class="image-wrapper">
-            <div class="brand">
-              <h1>LaOnZenaMoon</h1>
-              <h3>Web community</h3>
-            </div>
-          </div>
-        </div>
+  <div class="main main-raised">
+    <div class="md-layout">
+      <div class="md-layout-item md-size-66 mx-auto md-small-size-100">
+        <md-card>
+          <carousel
+            :per-page="1"
+            loop
+            :speed="700"
+            autoplay
+            :autoplay-timeout="5000"
+            :mouse-drag="false"
+            navigationEnabled
+            navigationNextLabel="<i class='material-icons'>keyboard_arrow_right</i>"
+            navigationPrevLabel="<i class='material-icons'>keyboard_arrow_left</i>"
+          >
+            <slide>
+              <div class="carousel-caption">
+                <h4>
+                  <md-icon>location_on</md-icon>
+                  Somewhere Beyond, United States
+                </h4>
+              </div>
+              <img :src="carousel1" alt="carousel1"/>
+            </slide>
+            <slide>
+              <div class="carousel-caption">
+                <h4>
+                  <md-icon>location_on</md-icon>
+                  Yellowstone National Park, United States
+                </h4>
+              </div>
+              <img :src="carousel2" alt="carousel2"/>
+            </slide>
+            <slide>
+              <div class="carousel-caption">
+                <h4>
+                  <md-icon>location_on</md-icon>
+                  Yellowstone National Park, United States
+                </h4>
+              </div>
+              <img :src="carousel3" alt="carousel3"/>
+            </slide>
+          </carousel>
+        </md-card>
       </div>
-    </parallax>
-    <div class="main main-raised">
-      What is Lorem Ipsum?
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
     </div>
   </div>
 </template>
@@ -22,47 +51,17 @@
 <script>
 
 export default {
-  components: {
-  },
-  name: "index",
-  bodyClass: "index-page",
-  props: {
-    image: {
-      type: String,
-      default: require("@/assets/img/vue-mk-header.jpg")
-    },
-  },
+  components: {},
+  props: {},
   data() {
     return {
-      firstname: null,
-      email: null,
-      password: null,
-      leafShow: false
+      carousel1: require("@/assets/img/nature-2.jpg"),
+      carousel2: require("@/assets/img/nature.jpg"),
+      carousel3: require("@/assets/img/nature-3.jpg"),
     };
   },
-  methods: {
-    leafActive() {
-      if (window.innerWidth < 768) {
-        this.leafShow = false;
-      } else {
-        this.leafShow = true;
-      }
-    }
-  },
-  computed: {
-    headerStyle() {
-      return {
-        backgroundColor: '#009999'
-      };
-    },
-  },
-  mounted() {
-    this.leafActive();
-    window.addEventListener("resize", this.leafActive);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.leafActive);
-  }
+  methods: {},
+  computed: {},
 };
 </script>
 <style lang="scss">
