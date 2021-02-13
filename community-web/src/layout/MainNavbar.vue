@@ -8,7 +8,7 @@
   >
     <div class="md-toolbar-row md-collapse-lateral">
       <div class="md-toolbar-section-start">
-        <h3 class="md-title">Vue Material Kit</h3>
+        <h3 class="md-title">LaOnZenaMoon</h3>
       </div>
       <div class="md-toolbar-section-end">
         <md-button
@@ -27,7 +27,7 @@
               <!-- Here you can add your items from the section-start of your toolbar -->
             </mobile-menu>
             <md-list>
-              <li class="md-list-item" v-if="!showDownload">
+              <li class="md-list-item">
                 <a
                   href="javascript:void(0)"
                   class="md-list-item-router md-list-item-container md-button-clean dropdown"
@@ -39,14 +39,14 @@
                         class="md-button md-button-link md-white md-simple dropdown-toggle"
                         data-toggle="dropdown"
                       >
-                        <i class="material-icons">apps</i>
-                        <p>Components</p>
+                        <i class="material-icons">content_paste</i>
+                        <p>Notice</p>
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <li>
                           <a href="#/">
-                            <i class="material-icons">layers</i>
-                            <p>All Components</p>
+                            <i class="material-icons">content_paste</i>
+                            <p>Notice 1</p>
                           </a>
                         </li>
                         <li>
@@ -54,7 +54,7 @@
                             href="https://demos.creative-tim.com/vue-material-kit/documentation/"
                           >
                             <i class="material-icons">content_paste</i>
-                            <p>Documentation</p>
+                            <p>Notice 2</p>
                           </a>
                         </li>
                       </ul>
@@ -63,25 +63,7 @@
                 </a>
               </li>
 
-              <md-list-item
-                href="https://demos.creative-tim.com/vue-material-kit/documentation/"
-                target="_blank"
-                v-if="showDownload"
-              >
-                <i class="material-icons">content_paste</i>
-                <p>Documentation</p>
-              </md-list-item>
-
-              <md-list-item
-                href="javascript:void(0)"
-                @click="scrollToElement()"
-                v-if="showDownload"
-              >
-                <i class="material-icons">cloud_download</i>
-                <p>Download</p>
-              </md-list-item>
-
-              <li class="md-list-item" v-else>
+              <li class="md-list-item">
                 <a
                   href="javascript:void(0)"
                   class="md-list-item-router md-list-item-container md-button-clean dropdown"
@@ -93,26 +75,94 @@
                         class="md-button md-button-link md-white md-simple dropdown-toggle"
                         data-toggle="dropdown"
                       >
-                        <i class="material-icons">view_carousel</i>
-                        <p>Examples</p>
+                        <i class="material-icons">view_column</i>
+                        <p>Column</p>
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
                         <li>
-                          <a href="#/landing">
-                            <i class="material-icons">view_day</i>
-                            <p>Landing Page</p>
+                          <a href="#/">
+                            <i class="material-icons">view_column</i>
+                            <p>Column 1</p>
                           </a>
                         </li>
                         <li>
-                          <a href="#/login">
-                            <i class="material-icons">fingerprint</i>
-                            <p>Login Page</p>
+                          <a
+                            href="https://demos.creative-tim.com/vue-material-kit/documentation/"
+                          >
+                            <i class="material-icons">view_column</i>
+                            <p>Column 2</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </drop-down>
+                  </div>
+                </a>
+              </li>
+
+              <li class="md-list-item">
+                <a
+                  href="javascript:void(0)"
+                  class="md-list-item-router md-list-item-container md-button-clean dropdown"
+                >
+                  <div class="md-list-item-content">
+                    <drop-down direction="down">
+                      <md-button
+                        slot="title"
+                        class="md-button md-button-link md-white md-simple dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="material-icons">people</i>
+                        <p>Community</p>
+                      </md-button>
+                      <ul class="dropdown-menu dropdown-with-icons">
+                        <li>
+                          <a href="#/">
+                            <i class="material-icons">people</i>
+                            <p>Community 1</p>
                           </a>
                         </li>
                         <li>
-                          <a href="#/profile">
-                            <i class="material-icons">account_circle</i>
-                            <p>Profile Page</p>
+                          <a
+                            href="https://demos.creative-tim.com/vue-material-kit/documentation/"
+                          >
+                            <i class="material-icons">people</i>
+                            <p>Community 2</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </drop-down>
+                  </div>
+                </a>
+              </li>
+
+              <li class="md-list-item">
+                <a
+                  href="javascript:void(0)"
+                  class="md-list-item-router md-list-item-container md-button-clean dropdown"
+                >
+                  <div class="md-list-item-content">
+                    <drop-down direction="down">
+                      <md-button
+                        slot="title"
+                        class="md-button md-button-link md-white md-simple dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="material-icons">perm_media</i>
+                        <p>Multimedia</p>
+                      </md-button>
+                      <ul class="dropdown-menu dropdown-with-icons">
+                        <li>
+                          <a href="#/">
+                            <i class="material-icons">perm_media</i>
+                            <p>Multimedia 1</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://demos.creative-tim.com/vue-material-kit/documentation/"
+                          >
+                            <i class="material-icons">perm_media</i>
+                            <p>Multimedia 2</p>
                           </a>
                         </li>
                       </ul>
@@ -122,33 +172,21 @@
               </li>
 
               <md-list-item
-                href="https://twitter.com/CreativeTim"
+                href="#"
                 target="_blank"
               >
-                <i class="fab fa-twitter"></i>
-                <p class="hidden-lg">Twitter</p>
-                <md-tooltip md-direction="bottom"
-                  >Follow us on Twitter</md-tooltip
-                >
+                <i class="material-icons">gesture</i>
+                <p>Comedy</p>
               </md-list-item>
+
               <md-list-item
-                href="https://www.facebook.com/CreativeTim"
+                href="#"
                 target="_blank"
               >
-                <i class="fab fa-facebook-square"></i>
-                <p class="hidden-lg">Facebook</p>
+                <i class="material-icons">person</i>
+                <p class="hidden-lg">User</p>
                 <md-tooltip md-direction="bottom"
-                  >Like us on Facebook</md-tooltip
-                >
-              </md-list-item>
-              <md-list-item
-                href="https://www.instagram.com/CreativeTimOfficial"
-                target="_blank"
-              >
-                <i class="fab fa-instagram"></i>
-                <p class="hidden-lg">Instagram</p>
-                <md-tooltip md-direction="bottom"
-                  >Follow us on Instagram</md-tooltip
+                  >About user information</md-tooltip
                 >
               </md-list-item>
             </md-list>
@@ -174,6 +212,7 @@ function resizeThrottler(actualResizeHandler) {
 }
 
 import MobileMenu from "@/layout/MobileMenu";
+
 export default {
   components: {
     MobileMenu
