@@ -1,20 +1,56 @@
 <template>
   <b-row class="m-2">
-    <b-col cols="8">
-      <Grid v-bind:gridData="{ title: 'Test', fields: ['title', 'userId'], items: this.items,}"></Grid>
-    </b-col>
-    <b-col cols="4">
-      <b-card title="Card title" sub-title="Card subtitle">
-        <b-card-text>
-          Some quick example text to build on the <em>card title</em> and make up the bulk of the card's
-          content.
-        </b-card-text>
+    <b-col cols="12">
+      <b-carousel
+        id="carousel-1"
+        v-model="slide"
+        :interval="4000"
+        controls
+        indicators
+        background="#ababab"
+        img-width="1024"
+        img-height="480"
+        style="text-shadow: 1px 1px 2px #333;"
+        @sliding-start="onSlideStart"
+        @sliding-end="onSlideEnd"
+      >
+        <!-- Text slides with image -->
+        <b-carousel-slide
+          caption="First slide"
+          text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+          img-src="https://picsum.photos/1024/480/?image=52"
+        ></b-carousel-slide>
 
-        <b-card-text>A second paragraph of text in the card.</b-card-text>
+        <!-- Slides with custom text -->
+        <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
+          <h1>Hello world!</h1>
+        </b-carousel-slide>
 
-        <a href="#" class="card-link">Card link</a>
-        <b-link href="#" class="card-link">Another link</b-link>
-      </b-card>
+        <!-- Slides with image only -->
+        <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
+
+        <!-- Slides with img slot -->
+        <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
+        <b-carousel-slide>
+          <template #img>
+            <img
+              class="d-block img-fluid w-100"
+              width="1024"
+              height="480"
+              src="https://picsum.photos/1024/480/?image=55"
+              alt="image slot"
+            >
+          </template>
+        </b-carousel-slide>
+
+        <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+        <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
+            a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
+          </p>
+        </b-carousel-slide>
+      </b-carousel>
     </b-col>
   </b-row>
 
@@ -22,28 +58,21 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Grid from "@/components/Grid";
 
 export default {
-  components: {
-    Grid,
-  },
   data() {
     return {
-      items: [],
+      slide: 0,
+      sliding: null
     }
   },
   methods: {
-    getPostData: function () {
-      return axios.get('https://jsonplaceholder.typicode.com/posts')
-        .then(({ data }) => {
-          this.items = data;
-        }).catch();
+    onSlideStart() {
+      this.sliding = true
     },
-  },
-  created() {
-    this.getPostData();
+    onSlideEnd() {
+      this.sliding = false
+    }
   }
 }
 </script>

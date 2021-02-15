@@ -1,7 +1,7 @@
 <template>
   <b-row class="m-2">
     <b-col cols="8">
-      <Grid v-bind:gridData="{ title: this.pageName, fields: ['title', 'userId'], items: this.items,}"></Grid>
+      <Grid v-bind:gridData="{ title: this.pageName, fields: ['title', 'id', 'userId'], items: this.items,}"></Grid>
     </b-col>
     <b-col cols="4">
       <b-card title="Card title" sub-title="Card subtitle">
