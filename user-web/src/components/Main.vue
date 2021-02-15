@@ -1,22 +1,7 @@
 <template>
   <b-row class="m-2">
     <b-col cols="8">
-      <div>
-        <b-card title="Card title">
-          <template>
-            <div>
-              <b-table
-                :head-variant="'dark'"
-                :items="items"
-                :fields="fields"
-                :per-page="perPage"
-                small
-              ></b-table>
-              <b-pagination v-model="currentPage" :total-rows="rows"></b-pagination>
-            </div>
-          </template>
-        </b-card>
-      </div>
+      <Grid v-bind:gridData="{ title: 'Test', fields: ['title'], items: this.items,}"></Grid>
     </b-col>
     <b-col cols="4">
       <b-card title="Card title" sub-title="Card subtitle">
@@ -38,15 +23,15 @@
 
 <script>
 import axios from 'axios';
+import Grid from "@/components/Grid";
 
 export default {
+  components: {
+    Grid,
+  },
   data() {
     return {
-      fields: ['title'],
       items: [],
-      rows: 100,
-      perPage: 20,
-      currentPage: 1,
     }
   },
   methods: {
