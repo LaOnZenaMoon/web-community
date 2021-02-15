@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-nav class="menu1">
+    <b-nav class="header-top">
       <b-nav-item-dropdown right>
         <template #button-content>
           <em>User</em>
@@ -9,7 +9,7 @@
         <b-dropdown-item href="#">Sign Out</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
-    <b-nav class="menu2">
+    <b-nav class="header-nav">
       <b-nav-item>Notice</b-nav-item>
       <b-nav-item>Column</b-nav-item>
       <b-nav-item-dropdown
@@ -33,10 +33,12 @@ export default {}
 </script>
 
 <style scoped>
-.menu1 {
+.header-top {
   background-color: lightgrey;
+  height: 50px;
 }
-.menu2 {
+.header-nav {
   background-color: #CC9999;
+  height: 50px;
 }
 </style>
