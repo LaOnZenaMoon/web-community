@@ -10,20 +10,20 @@
       </b-nav-item-dropdown>
     </b-nav>
     <b-nav class="header-nav">
-      <b-nav-item>Notice</b-nav-item>
-      <b-nav-item>Column</b-nav-item>
+      <b-nav-item to="/notice/board">Notice</b-nav-item>
+      <b-nav-item to="/column/board">Column</b-nav-item>
       <b-nav-item-dropdown
         text="Community"
         toggle-class="nav-link-custom"
         right
       >
-        <b-dropdown-item>Expert community</b-dropdown-item>
+        <b-dropdown-item to="/expert/community/board">Expert community</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item>Free community</b-dropdown-item>
+        <b-dropdown-item to="/free/community/board">Free community</b-dropdown-item>
       </b-nav-item-dropdown>
-      <b-nav-item>Multimedia</b-nav-item>
-      <b-nav-item>Comedy</b-nav-item>
-      <b-nav-item>Market</b-nav-item>
+      <b-nav-item to="/multimedia/board">Multimedia</b-nav-item>
+      <b-nav-item to="/comedy/board">Comedy</b-nav-item>
+      <b-nav-item to="/market/board">Market</b-nav-item>
     </b-nav>
   </div>
 </template>
