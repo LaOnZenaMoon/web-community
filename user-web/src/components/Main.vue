@@ -1,12 +1,18 @@
 <template>
-
-  <b-row>
+  <b-row class="m-2">
     <b-col cols="8">
       <div>
         <b-card title="Card title">
           <template>
             <div>
-              <b-table :items="items" :fields="fields"></b-table>
+              <b-table
+                :head-variant="'dark'"
+                :items="items"
+                :fields="fields"
+                :per-page="perPage"
+                small
+              ></b-table>
+              <b-pagination v-model="currentPage" :total-rows="rows"></b-pagination>
             </div>
           </template>
         </b-card>
@@ -36,15 +42,19 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      fields: ['userId', 'id', 'title', 'body'],
+      fields: ['title'],
       items: [],
+      rows: 100,
+      perPage: 20,
+      currentPage: 1,
     }
   },
   methods: {
     getPostData: function () {
       return axios.get('https://jsonplaceholder.typicode.com/posts')
-        .then(({ data }) => this.items = data)
-        .catch();
+        .then(({ data }) => {
+          this.items = data;
+        }).catch();
     },
   },
   created() {
