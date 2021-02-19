@@ -62,7 +62,7 @@
 
 <script>
 import {signIn} from '../../api';
-import router from "@/routes/router";
+import {request} from '../../api/api-control';
 
 export default {
   data() {
@@ -76,16 +76,30 @@ export default {
   },
   methods: {
     onSubmit() {
-      signIn({
+      // signIn({
+      //   identifier: this.model.identifier,
+      //   password: this.model.password
+      // })
+      //   .then((response) => {
+      //     if (response.status === 200) {
+      //       // router.push('/');
+      //     }
+      //     console.log(response);
+      //   })
+      //   .catch((error) => console.log(error));
+
+      request.post('/auth-api/api/sign/in', {
         identifier: this.model.identifier,
         password: this.model.password
       })
         .then((response) => {
-          if (response.status === 200) {
-            router.push('/');
-          }
-        })
+        if (response.status === 200) {
+          // router.push('/');
+        }
+        console.log(response);
+      })
         .catch((error) => console.log(error));
+
     }
   }
 }

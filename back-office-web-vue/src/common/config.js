@@ -1,0 +1,11 @@
+export const API_URL = "http://localhost:8244";
+export const SMS_URL = "http://localhost:8242";
+export const SMS_SERVICE_URL = "http://localhost:8240";
+export const SMS_UI_URL = "http://10.110.60.10:8246";
+export const DEBUG = true;
+// export const API_URL = "http://10.110.60.11:8244";
+// export const SMS_URL = "http://10.110.60.10/api/sms-api";
+// export const SMS_SERVICE_URL = "http://10.110.60.10/api/sms-service-api";
+// export const SMS_UI_URL = "http://10.110.60.10:8246";
+// export const DEBUG = false;
+export default { API_URL, SMS_URL, DEBUG, SMS_SERVICE_URL, SMS_UI_URL };
