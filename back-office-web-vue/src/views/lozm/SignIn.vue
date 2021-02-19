@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import {signIn} from '../../api';
-import {request} from '../../api/api-control';
+import {noAuthentication} from '../../api/api-control';
+import {getToken, setToken, removeToken, getUserId, getUserName, getIssueTime, getExpirationTime} from '../../api/token-control';
 
 export default {
   data() {
@@ -76,30 +76,21 @@ export default {
   },
   methods: {
     onSubmit() {
-      // signIn({
-      //   identifier: this.model.identifier,
-      //   password: this.model.password
-      // })
-      //   .then((response) => {
-      //     if (response.status === 200) {
-      //       // router.push('/');
-      //     }
-      //     console.log(response);
-      //   })
-      //   .catch((error) => console.log(error));
-
-      request.post('/auth-api/api/sign/in', {
+      noAuthentication.signIn({
         identifier: this.model.identifier,
         password: this.model.password
       })
         .then((response) => {
-        if (response.status === 200) {
-          // router.push('/');
-        }
-        console.log(response);
-      })
-        .catch((error) => console.log(error));
-
+          if (response.status === 200) {
+            setToken(response.data.token);
+            // router.push('/');
+          }
+          console.log(getUserId());
+          console.log(getUserName());
+          console.log(getIssueTime());
+          console.log(getExpirationTime());
+        })
+        .catch(console.log);
     }
   }
 }
