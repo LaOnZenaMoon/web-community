@@ -39,7 +39,7 @@
                     <img alt="Image placeholder" src="img/theme/team-4.jpg">
                   </span>
             <b-media-body class="ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm  font-weight-bold">Administrator</span>
+              <span class="mb-0 text-sm  font-weight-bold" v-text="this.userId">Administrator</span>
             </b-media-body>
           </b-media>
         </a>
@@ -66,7 +66,7 @@
             <span>Support</span>
           </b-dropdown-item>
           <div class="dropdown-divider"></div>
-          <b-dropdown-item href="#!">
+          <b-dropdown-item @click="this.signOut">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
           </b-dropdown-item>
@@ -80,6 +80,8 @@
 <script>
 import {CollapseTransition} from "vue2-transitions";
 import {BaseNav, Modal} from "@/components";
+import {noAuthentication} from "@/api/api-control";
+import {getUserId} from "@/api/token-control";
 
 export default {
   components: {
@@ -105,7 +107,8 @@ export default {
       activeNotifications: false,
       showMenu: false,
       searchModalVisible: false,
-      searchQuery: ''
+      searchQuery: '',
+      userId: getUserId(),
     };
   },
   methods: {
@@ -117,7 +120,10 @@ export default {
     },
     closeDropDown() {
       this.activeNotifications = false;
-    }
+    },
+    signOut() {
+      noAuthentication.signOut();
+    },
   }
 }
 </script>

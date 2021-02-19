@@ -1,7 +1,8 @@
 import axios from "axios";
 import {LOZM_GATEWAY_SERVER} from "@/common/environment";
-import {checkTokenExpired} from "@/api/token-control";
+import {checkTokenExpired, removeToken} from "@/api/token-control";
 import {basicLogger} from "@/common/logger";
+import router from "@/routes/router";
 
 
 axios.defaults.headers = {'Content-Type': 'application/json;charset=UTF-8'};
@@ -77,11 +78,15 @@ const noAuthentication = {
   signIn(payload) {
     return request.post('/auth-api/api/sign/in', payload);
   },
+  signOut() {
+    removeToken();
+    moveSignInPage();
+  },
 };
 
 const moveSignInPage = () => {
   alert('Your account information has expired. Please sign in again.');
-  this.$route.push(`/signIn?previousPath=${encodeURIComponent(location.pathname)}`);
+  router.push(`/signIn?previousPath=${encodeURIComponent(location.pathname)}`);
 };
 
 export {
