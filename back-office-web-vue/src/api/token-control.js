@@ -1,4 +1,5 @@
 import jwtDecode from "jwt-decode";
+import {superLogger} from "@/common/logger";
 
 const TOKEN_KEY = 'LOZM_WEB_TOKEN';
 
@@ -22,6 +23,29 @@ const getIssueTime = () => jwtDecode(getToken()).iat;
 
 const getExpirationTime = () => jwtDecode(getToken()).exp;
 
+const checkTokenExpired = () => {
+  try {
+    const decodedToken = jwtDecode(getToken());
+    if (decodedToken && typeof decodedToken.exp !== 'undefined') {
+      return validateToken(decodedToken.exp);
+    }
+
+    throw `${TOKEN_KEY} is undefined.`;
+  } catch (e) {
+    superLogger(e);
+    return false;
+  }
+};
+
+const validateToken = (expirationTime) => {
+  const now = Date.now().valueOf() / 1000;
+  if (now > expirationTime) {
+    return false;
+  }
+
+  return true;
+};
+
 
 export {
   getToken,
@@ -31,4 +55,5 @@ export {
   getUserName,
   getIssueTime,
   getExpirationTime,
+  checkTokenExpired,
 }

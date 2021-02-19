@@ -1,4 +1,4 @@
-import config from './config'
+import config from './environment'
 
 export const logger = {
     console (msg) {

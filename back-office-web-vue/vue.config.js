@@ -3,7 +3,7 @@ const path = require('path');
 function resolveSrc(_path) {
   return path.join(__dirname, _path);
 }
-// vue.config.js
+// vue.environment.js
 module.exports = {
   lintOnSave: true,
   configureWebpack: {

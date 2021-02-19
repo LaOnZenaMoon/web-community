@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, SMS_URL, SMS_SERVICE_URL } from "../common/config";
+import { API_URL, SMS_URL, SMS_SERVICE_URL } from "./environment";
 import router from '../router'
 import { destroyToken } from './jwt.service'
 import {logger} from "./utils";

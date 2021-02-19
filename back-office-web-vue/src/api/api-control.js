@@ -1,30 +1,43 @@
 import axios from "axios";
+import {LOZM_GATEWAY_SERVER} from "@/common/environment";
+import {checkTokenExpired} from "@/api/token-control";
+import {basicLogger} from "@/common/logger";
+
 
 axios.defaults.headers = {'Content-Type': 'application/json;charset=UTF-8'};
 axios.interceptors.request.use((config) => {
-    console.log('==== Intercept request ====');
-    console.log(config);
-    console.log('============================');
+    if (checkTokenExpired()) {
+      moveSignInPage();
+    }
+
+    basicLogger('==== Intercept request ====');
+    basicLogger(config);
+    basicLogger('============================');
     return config;
   },
   (error) => {
-    console.log(error);
+    basicLogger(error);
     return Promise.reject(error);
   });
 
 axios.interceptors.response.use((config) => {
-    console.log('==== Intercept response ====');
-    console.log(config);
-    console.log('============================');
+    if (config.status === 401) {
+      moveSignInPage();
+    }
+
+    basicLogger('==== Intercept response ====');
+    basicLogger(config);
+    basicLogger('============================');
     return config;
   },
   (error => {
-    console.log(error);
+    basicLogger(error);
     return Promise.reject(error);
   }));
 
+
 const config = {
-  domain: 'http://127.0.0.1:8882' // local
+  domain: LOZM_GATEWAY_SERVER,
 };
 
 const request = {
@@ -64,6 +77,11 @@ const noAuthentication = {
   signIn(payload) {
     return request.post('/auth-api/api/sign/in', payload);
   },
+};
+
+const moveSignInPage = () => {
+  alert('Your account information has expired. Please sign in again.');
+  this.$route.push(`/signIn?previousPath=${encodeURIComponent(location.pathname)}`);
 };
 
 export {

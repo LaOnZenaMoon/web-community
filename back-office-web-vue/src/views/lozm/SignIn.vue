@@ -62,15 +62,20 @@
 
 <script>
 import {noAuthentication} from '../../api/api-control';
-import {getToken, setToken, removeToken, getUserId, getUserName, getIssueTime, getExpirationTime} from '../../api/token-control';
+import {setToken} from '../../api/token-control';
+import {basicLogger} from "@/common/logger";
 
 export default {
+  created() {
+    this.previousPath = this.$route.query.previousPath || '/';
+  },
   data() {
     return {
       model: {
         identifier: '',
         password: '',
-        rememberMe: false
+        rememberMe: false,
+        previousPath: '',
       }
     };
   },
@@ -83,16 +88,15 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             setToken(response.data.token);
-            // router.push('/');
+            this.$router.push(this.previousPath);
           }
-          console.log(getUserId());
-          console.log(getUserName());
-          console.log(getIssueTime());
-          console.log(getExpirationTime());
         })
-        .catch(console.log);
+        .catch(error => {
+          basicLogger(error);
+          alert('Failed to sign in. Please check your account information.');
+        });
     }
-  }
+  ,}
 }
 </script>
 
