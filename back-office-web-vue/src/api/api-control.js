@@ -1,0 +1,7 @@
+const authentication = {
+
+};
+
+const common = {
+
+};
