@@ -2,6 +2,8 @@
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
 
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
       <!--Toggler-->
       <navbar-toggle-button @click.native="showSidebar">
 

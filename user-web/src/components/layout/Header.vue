@@ -1,7 +1,8 @@
 <template>
   <div>
-    <b-nav class="header-top">
+    <b-nav class="header-top" align="right">
       <b-nav-text>LaOnZenaMoon</b-nav-text>
+
       <b-nav-item-dropdown right>
         <template #button-content>
           <em>User</em>
@@ -10,7 +11,7 @@
         <b-dropdown-item href="#">Sign Out</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
-    <b-nav class="header-nav">
+    <b-nav class="header-nav" align="center">
       <b-nav-item to="/">Main</b-nav-item>
       <b-nav-item to="/notice/board">Notice</b-nav-item>
       <b-nav-item to="/column/board">Column</b-nav-item>
@@ -36,10 +37,13 @@ export default {}
 
 <style scoped>
 .header-top {
+  padding-top: 4px;
   background-color: lightgrey;
   height: 50px;
 }
+
 .header-nav {
+  padding-top: 4px;
   background-color: #CC9999;
   height: 50px;
 }

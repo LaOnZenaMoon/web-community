@@ -15,6 +15,15 @@
 
           <sidebar-item
             :link="{
+            name: 'Dashboard',
+            path: '/dashboard',
+            icon: 'ni ni-tv-2 text-primary',
+          }"
+          >
+          </sidebar-item>
+
+          <sidebar-item
+            :link="{
               name: 'Icons',
               path: '/icons',
               icon: 'ni ni-planet text-blue'
