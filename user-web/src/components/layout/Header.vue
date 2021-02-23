@@ -1,16 +1,26 @@
 <template>
   <div>
-    <b-nav class="header-top" align="right">
-      <b-nav-text>LaOnZenaMoon</b-nav-text>
+    <div class="header-top">
+      <ul>
+        <li style="float: left">LaOnZenaMoon</li>
+        <li style="float: right">
 
-      <b-nav-item-dropdown right>
-        <template #button-content>
-          <em>User</em>
-        </template>
-        <b-dropdown-item href="#">Profile</b-dropdown-item>
-        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-      </b-nav-item-dropdown>
-    </b-nav>
+        </li>
+
+      </ul>
+      <font-awesome-icon :icon="['fas','heart']"/>
+    </div>
+<!--    <b-nav class="header-top">-->
+<!--      <b-nav-text>LaOnZenaMoon</b-nav-text>-->
+
+<!--      <b-nav-item-dropdown right>-->
+<!--        <template #button-content>-->
+<!--          <em>User</em>-->
+<!--        </template>-->
+<!--        <b-dropdown-item href="#">Profile</b-dropdown-item>-->
+<!--        <b-dropdown-item href="#">Sign Out</b-dropdown-item>-->
+<!--      </b-nav-item-dropdown>-->
+<!--    </b-nav>-->
     <b-nav class="header-nav" align="center">
       <b-nav-item to="/">Main</b-nav-item>
       <b-nav-item to="/notice/board">Notice</b-nav-item>
@@ -32,7 +42,9 @@
 </template>
 
 <script>
-export default {}
+
+export default {
+}
 </script>
 
 <style scoped>
@@ -42,9 +54,18 @@ export default {}
   height: 50px;
 }
 
+.header-top > ul {
+  list-style-type: none;
+}
+
 .header-nav {
+  color: #DFE4ED;
   padding-top: 4px;
-  background-color: #CC9999;
+  background-color: #2f4050;
   height: 50px;
+}
+
+a, li a span{
+  color: white;
 }
 </style>
