@@ -1,26 +1,16 @@
 <template>
   <div>
-    <div class="header-top">
-      <ul>
-        <li style="float: left">LaOnZenaMoon</li>
-        <li style="float: right">
+    <b-nav class="header-top">
+      <b-nav-text>LaOnZenaMoon</b-nav-text>
 
-        </li>
-
-      </ul>
-      <font-awesome-icon :icon="['fas','heart']"/>
-    </div>
-<!--    <b-nav class="header-top">-->
-<!--      <b-nav-text>LaOnZenaMoon</b-nav-text>-->
-
-<!--      <b-nav-item-dropdown right>-->
-<!--        <template #button-content>-->
-<!--          <em>User</em>-->
-<!--        </template>-->
-<!--        <b-dropdown-item href="#">Profile</b-dropdown-item>-->
-<!--        <b-dropdown-item href="#">Sign Out</b-dropdown-item>-->
-<!--      </b-nav-item-dropdown>-->
-<!--    </b-nav>-->
+      <b-nav-item-dropdown right>
+        <template #button-content>
+          <font-awesome-icon :icon="['fas','heart']"/>
+        </template>
+        <b-dropdown-item href="#">Profile</b-dropdown-item>
+        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+      </b-nav-item-dropdown>
+    </b-nav>
     <b-nav class="header-nav" align="center">
       <b-nav-item to="/">Main</b-nav-item>
       <b-nav-item to="/notice/board">Notice</b-nav-item>
